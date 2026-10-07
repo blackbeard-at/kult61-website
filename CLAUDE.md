@@ -12,8 +12,10 @@ sondern Markdown-Dateien mit festen Feldern (siehe unten).
 
 ## Stack
 - Astro (statisch, kein SSR), Inter selbst gehostet (`@fontsource/inter`)
+- Repo: https://github.com/blackbeard-at/kult61-website (privat, Branch `main`, erster Push
+  07.10.2026; HTTPS-Remote wie bei den anderen Projekten, kein `gh` installiert)
 - Deployment: Cloudflare Workers (statische Assets, `wrangler.jsonc`), baut
-  automatisch bei Push auf `main` (sobald Repo + Cloudflare-Projekt angelegt sind)
+  automatisch bei Push auf `main` (sobald das Cloudflare-Projekt angelegt ist — noch offen)
 - `trailingSlash: 'never'` + `build.format: 'file'` wie bei SHAFTCONSULT: Seiten
   liegen unter `/impressum` ohne Schrägstrich am Ende
 - Dev-Server: `npm run dev`. In der Claude-Desktop-App startet `kult61-dev`
