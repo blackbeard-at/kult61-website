@@ -15,7 +15,10 @@ sondern Markdown-Dateien mit festen Feldern (siehe unten).
 - Repo: https://github.com/blackbeard-at/kult61-website (privat, Branch `main`, erster Push
   07.10.2026; HTTPS-Remote wie bei den anderen Projekten, kein `gh` installiert)
 - Deployment: Cloudflare Workers (statische Assets, `wrangler.jsonc`), baut
-  automatisch bei Push auf `main` (sobald das Cloudflare-Projekt angelegt ist — noch offen)
+  automatisch bei Push auf `main`, sobald das Cloudflare-Projekt mit dem Repo verbunden ist.
+  Schritt-für-Schritt (Worker verbinden, später DNS-Umstellung): `docs/cloudflare-einrichtung.md`.
+  Build-Test in frischem Clone + lokale Workers-Laufzeit (Redirects, 404, Header) am 07.10.2026 ok.
+  Node 22 per `.nvmrc`.
 - `trailingSlash: 'never'` + `build.format: 'file'` wie bei SHAFTCONSULT: Seiten
   liegen unter `/impressum` ohne Schrägstrich am Ende
 - Dev-Server: `npm run dev`. In der Claude-Desktop-App startet `kult61-dev`
@@ -179,7 +182,7 @@ alles — nach dem Go-Live **nie** benutzen).
   Hell-/Dunkelmodus an, PNG/ICO transparent mit dunklem Logo; Apple-/Android-Icons helles Logo
   auf `#0F0000`). Nicht wieder auf das reine Symbol umstellen.
 
-## Domain / Mail beim Umzug von STRATO zu Cloudflare (noch offen)
+## Domain / Mail beim Umzug von STRATO zu Cloudflare (noch offen — erst nach Kundenfreigabe)
 Stand der Analyse am 07.10.2026: `kult61.de` liegt komplett bei STRATO (NS
 `shades18/docks02.rzone.de`, A `81.169.145.92`), Mail ebenfalls dort.
 Öffentliche DNS-Einträge: MX `5 smtpin.rzone.de`, CNAME `autoconfig` →
