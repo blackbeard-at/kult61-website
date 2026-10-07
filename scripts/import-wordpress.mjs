@@ -151,7 +151,7 @@ async function main() {
     // Slug: alter Slug bleibt, wenn er korrekt mit dem Datum endet — sonst neu erzeugen
     const dateSlug = `${dd}-${mm}-${yyyy}`;
     const slug = post.slug.endsWith(`-${dateSlug}`) ? post.slug : `${slugify(title)}-${dateSlug}`;
-    redirects.push([`/${post.slug}/`, `/events/${slug}`]);
+    redirects.push([`/${post.slug}/`, `/events/${slug}`], [`/${post.slug}`, `/events/${slug}`]);
 
     const { lines, ticketUrl } = parseContent(post.content.rendered);
     const doors = parseTime(lines, 'Einlass');
@@ -220,7 +220,7 @@ async function main() {
     );
   }
 
-  // Weiterleitungen: alte WP-URLs (mit Schrägstrich) → neue Event-URLs
+  // Weiterleitungen: alte WP-URLs (mit und ohne Schrägstrich) → neue Event-URLs
   const redirectLines = [
     '# Alte WordPress-URLs → neue Struktur (automatisch erzeugt von scripts/import-wordpress.mjs)',
     ...redirects.map(([from, to]) => `${from} ${to} 301`),
