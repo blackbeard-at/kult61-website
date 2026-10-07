@@ -1,0 +1,38 @@
+User-agent: *
+Allow: /
+
+# KI-Suchen und Assistenten dürfen die Inhalte lesen und zitieren (KI-SEO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: MistralAI-User
+Allow: /
+
+Sitemap: https://kult61.de/sitemap-index.xml

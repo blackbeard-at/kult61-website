@@ -1,0 +1,18 @@
+# Cloudflare Workers Static Assets: Header für alle Dateien
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()
+
+# Gebaute Bilder/CSS/JS haben Hash im Dateinamen
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Zeichensatz für Textdateien mit Umlauten
+/llms.txt
+  Content-Type: text/plain; charset=utf-8
+
+/events.ics
+  Content-Type: text/calendar; charset=utf-8

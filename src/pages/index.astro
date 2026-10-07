@@ -1,0 +1,228 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventRow from '../components/EventRow.astro';
+import Faq from '../components/Faq.astro';
+import { photos, gallery } from '../lib/photos';
+import { getUpcomingEvents, eventUrl, absoluteUrl } from '../lib/events';
+import { faqJsonLd, type FaqItem } from '../lib/seo';
+import { SITE, MAIL_ANFRAGE, MAIL_RAUM } from '../config/site';
+
+const HOME_EVENTS = 8;
+const upcoming = await getUpcomingEvents();
+const shown = upcoming.slice(0, HOME_EVENTS);
+
+const faq: FaqItem[] = [
+  {
+    q: 'Was ist KULT61?',
+    a: `<p>KULT61 ist ein unabhängiger Kulturraum in Hanau-Großauheim. In einer ehemaligen KFZ-Halle finden Konzerte, Partys &amp; DJ-Sets, Kunstausstellungen, Workshops und Kollaborationen mit Kollektiven statt.</p><p>KULT61 steht für Vielfalt in Kunst, Musik und Lebensentwürfen, für offene und sichere Räume für alle Menschen, für die Unterstützung junger und alternativer Kunstschaffender und für die Verbindung von lokaler Szene und internationalem Einfluss.</p>`,
+  },
+  {
+    q: 'Wo finde ich KULT61 und wie komme ich hin?',
+    a: `<p>KULT61 liegt in der <strong>Hanauer Landstraße 61, 63457 Hanau (Großauheim)</strong> – in der ehemaligen KFZ-Halle in der Nähe des Bahnhofs Großauheim. Rund um das Gebäude sind ausreichend Parkplätze vorhanden.</p>`,
+  },
+  {
+    q: 'Welche Veranstaltungen gibt es bei KULT61?',
+    a: `<p>Das Programm ist bunt: Live-Konzerte von Rock über Stoner und Doom bis Psychedelic, DJ-Partys (zum Beispiel 80s/90s/2000s, Hip-Hop, House und elektronische Nächte), Karaoke, Song Slam, Stand-up-Comedy, Musik-Quiz und interaktive Events wie Murder Mystery.</p><p>Alle aktuellen Termine findest du im <a href="/events">Eventkalender</a>.</p>`,
+  },
+  {
+    q: 'Wie bekomme ich Tickets für Events bei KULT61?',
+    a: `<p>Für viele Veranstaltungen gibt es Vorverkaufstickets über Eventbrite – <a href="${SITE.ticketsUrl}" target="_blank" rel="noopener">hier findest du alle Vorverkaufstickets</a>. Bei manchen Events gibt es zusätzlich eine Abendkasse oder freien Eintritt. Die Details stehen jeweils auf der Seite des Events.</p>`,
+  },
+  {
+    q: 'Kann ich KULT61 für eine Feier oder Veranstaltung mieten?',
+    a: `<p>Ja. Die Räumlichkeiten eignen sich für Feiern, Geburtstage, Tanzabende und Tanzkurse, Konzerte, Workshops und regelmäßige Events. Platz ist für bis zu ${SITE.capacity.standing} Personen stehend oder ${SITE.capacity.seated} Personen mit Tischen und Stühlen. Vorhanden sind Bühne, Licht- und Soundanlage, Theke mit Kühlschränken und Sitzgelegenheiten; die Theke läuft normalerweise über unser Personal, die Getränkeeinkäufe machen wir für dich (eigene Getränke sind nach Absprache möglich) und mit Cateringfirmen arbeiten wir zusammen. Vermietet wird stundenweise, tageweise oder für feste Wochentermine.</p><p>Mehr Infos auf der Seite <a href="/raum-mieten">Räumlichkeiten</a> – eine Anfrage schickst du einfach per E-Mail an <a href="${MAIL_RAUM}">${SITE.email}</a>.</p>`,
+  },
+  {
+    q: 'Kann ich selbst ein Event oder Projekt bei KULT61 machen?',
+    a: `<p>Ja, bei KULT61 bist du willkommen. Geboten werden Raum für deine Ideen, ein Netzwerk mit anderen Kreativen, technisches Know-how &amp; Support sowie Vermietungen. Egal ob Musik, Kunst, Wort oder Aktion – schreib uns an <a href="${MAIL_ANFRAGE}">${SITE.email}</a>.</p>`,
+  },
+];
+
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Aktuelle Events im KULT61',
+  itemListElement: shown.map((e, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: absoluteUrl(eventUrl(e)),
+    name: e.data.title,
+  })),
+};
+---
+
+<BaseLayout
+  title="KULT61 – Kulturraum für Konzerte, Kunst & Events in Hanau-Großauheim"
+  description="KULT61: unabhängiger Kulturraum in Hanau-Großauheim – Konzerte, Partys, Kunst & Workshops in einer ehemaligen KFZ-Halle. Aktuelle Events, Tickets, Räume mieten."
+  path="/"
+  jsonLd={[faqJsonLd(faq), ...(shown.length ? [itemList] : [])]}
+>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-bg" data-hero-parallax>
+      <Image
+        src={photos.hero.src}
+        alt={photos.hero.alt}
+        widths={[800, 1280, 1600, 2000]}
+        sizes="(max-width: 959px) 320vw, 100vw"
+        quality={72}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+    <div>
+      <h1 id="hero-title">
+        <span class="box intro" style="--d: 300ms">KULT</span><wbr /><span class="box intro" style="--d: 450ms">61</span><span class="sr-only"> – Kulturraum für Konzerte, Kunst und Subkultur in Hanau-Großauheim</span>
+      </h1>
+      <p class="hero-sub intro" style="--d: 600ms">{SITE.subline}</p>
+      <p class="tagline intro" style="--d: 750ms"><span class="hero-tag" style="--d: 750ms">{SITE.tagline}</span></p>
+      <a class="scroll-down intro" style="--d: 1400ms" href="#kult61" aria-label="Zum Inhalt scrollen">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"></path></svg>
+      </a>
+    </div>
+  </section>
+
+  <section class="section" id="kult61">
+    <div class="container">
+      <p class="small-eyebrow">{SITE.subline}</p>
+      <h2 class="section-title xl">KULT61</h2>
+      <p class="lead" style="margin-top: 32px">
+        Industrie trifft Kreativität:<br />
+        Das <mark><strong>Kult61</strong></mark> in Hanau-Großauheim ist dein Raum für Konzerte, Kunst, Subkultur und echte Vibes. Eine ehemalige KFZ-Halle verwandelt sich hier in einen Hotspot für <mark>Musik</mark>, <mark>Kunst</mark> und <mark>Begegnung</mark>.
+      </p>
+      <hr class="rule" />
+      <div class="offer-grid">
+        <div>
+          <h3>Konzerte &amp; Live-Performances</h3>
+          <p>Live-Sound, der unter die Haut geht – direkt, roh und nahbar.</p>
+        </div>
+        <div>
+          <h3>Partys &amp; DJ-Sets</h3>
+          <p>Beats, Bass und Community – Tanzfläche statt Stillstand.</p>
+        </div>
+        <div>
+          <h3>Kunstausstellungen</h3>
+          <p>Raum für Perspektiven – Kunst, die inspiriert und bewegt.</p>
+        </div>
+        <div>
+          <h3>Workshops &amp; Austausch</h3>
+          <p>Wissen teilen, Ideen formen – gemeinsam wachsen.</p>
+        </div>
+        <div>
+          <h3>Kollektive &amp; Kollaborationen</h3>
+          <p>Gemeinsam kreativ – hier entstehen Verbindungen und Visionen.</p>
+        </div>
+        <div>
+          <h3>Ein Ort für kreative Energie,</h3>
+          <p>alternative Perspektiven und Menschen, die Kultur leben.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="ueber-uns">
+    <span class="dots br" aria-hidden="true"></span>
+    <div class="container split">
+      <div>
+        <h2 class="section-title tight">Wofür steht Kult61?</h2>
+        <p style="margin-top: 36px">Kult61 ist ein unabhängiger Kulturraum – für Diversität, Kreativität und echten Austausch. Wir schaffen Platz für junge, alternative Kunst abseits des Mainstreams.</p>
+        <p>Hier begegnen sich Subkultur, Kollektive und neue Perspektiven. Offen, sicher, laut – für alle, die was bewegen wollen.</p>
+        <p>Kult61 ist nicht Event. Kult61 ist Haltung. Bewegung. Ausdruck.</p>
+      </div>
+      <div class="collage" aria-hidden="false">
+        <Image src={photos.publikumHandy.src} alt={photos.publikumHandy.alt} width={900} height={900} widths={[400, 640, 900]} sizes="(min-width: 900px) 370px, 66vw" quality={70} loading="lazy" />
+        <Image data-rellax-speed="1" src={photos.mischpult.src} alt={photos.mischpult.alt} width={900} height={900} widths={[400, 640, 900]} sizes="(min-width: 900px) 320px, 56vw" quality={70} loading="lazy" />
+        <Image data-rellax-speed="3" src={photos.leuchtschrift.src} alt={photos.leuchtschrift.alt} width={900} height={900} widths={[400, 640, 900]} sizes="(min-width: 900px) 350px, 62vw" quality={70} loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="programm">
+    <span class="dots bl" aria-hidden="true"></span>
+    <div class="container split reverse">
+      <div>
+        <h2 class="section-title tight">Was geht bei uns?</h2>
+        <p style="margin-top: 36px">Ob elektronische Clubnacht, politische Lesung, Jam-Session oder Vernissage – unser Programm ist so bunt wie die Menschen, die hierherkommen.</p>
+        <p>Alle aktuellen Veranstaltungen findest du im <a href="/events"><strong>Eventkalender</strong></a>.</p>
+        <p>Du hast ein Projekt oder Event-Idee? Sprich uns an – wir freuen uns auf Kooperationen!</p>
+      </div>
+      <div class="collage">
+        <Image src={photos.bandRot.src} alt={photos.bandRot.alt} width={900} height={900} widths={[400, 640, 900]} sizes="(min-width: 900px) 370px, 66vw" quality={70} loading="lazy" />
+        <Image data-rellax-speed="1" src={photos.konzertBuehne.src} alt={photos.konzertBuehne.alt} width={900} height={900} widths={[400, 640, 900]} sizes="(min-width: 900px) 320px, 56vw" quality={70} loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="mitmachen">
+    <span class="dots tr" aria-hidden="true"></span>
+    <div class="container split">
+      <div>
+        <h2 class="section-title tight">Werde ein Teil von KULT61.</h2>
+        <p style="margin-top: 36px">Du willst selbst was auf die Beine stellen? Bei uns bist du willkommen!</p>
+        <p>Wir bieten:</p>
+        <ul class="check-list">
+          <li>Raum für deine Ideen</li>
+          <li>Netzwerk mit anderen Kreativen</li>
+          <li>Technisches Know-how &amp; Support</li>
+          <li>Vermietungen</li>
+        </ul>
+        <p>Egal ob Musik, Kunst, Wort oder Aktion – bring dich ein!</p>
+        <a class="btn" href={MAIL_ANFRAGE}>Anfragen</a>
+      </div>
+      <div class="collage wide">
+        <Image src={photos.techniker.src} alt={photos.techniker.alt} width={900} height={900} widths={[400, 640, 900]} sizes="(min-width: 900px) 370px, 66vw" quality={70} loading="lazy" />
+        <Image data-rellax-speed="1" src={photos.publikumLila.src} alt={photos.publikumLila.alt} width={900} height={900} widths={[400, 640, 900]} sizes="(min-width: 900px) 320px, 56vw" quality={70} loading="lazy" />
+        <Image data-rellax-speed="5" src={photos.equipment.src} alt={photos.equipment.alt} width={900} height={675} widths={[400, 640, 900]} sizes="(min-width: 900px) 350px, 62vw" quality={70} loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="raeumlichkeiten">
+    <div class="container rooms">
+      <div>
+        <h2 class="section-title">Unsere Räumlichkeiten</h2>
+        <a class="btn" href={MAIL_RAUM}>Jetzt Termin sichern</a>
+      </div>
+      <div class="facts compact">
+        <p>Du suchst eine stilvolle Location für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Workshops oder regelmäßige Events?<br />Dann ist das KULT 61 genau das Richtige für dich!</p>
+        <p><strong>Kapazität:</strong> bis zu {SITE.capacity.standing} Personen stehend, {SITE.capacity.seated} Personen mit Tischen und Stühlen<br /><strong>Ausstattung:</strong> Bühne, Licht- &amp; Soundanlage, Theke mit Kühlschränken, Sitzgelegenheiten<br /><strong>Service:</strong> Theke mit Personal, Getränkeeinkauf durch uns (eigene Getränke nach Absprache), Catering-Partner<br /><strong>Vermietung:</strong> Stundenweise, tageweise oder für feste Wochentermine möglich<br /><strong>Parkplätze:</strong> Rund um das Gebäude ausreichend vorhanden<br /><strong>Ideal für:</strong> Feiern, Tanzabende, Konzerte, kreative Workshops, Kurse u.v.m.</p>
+        <p><strong>Interesse? Jetzt anfragen und Termin sichern!</strong> <a href="/raum-mieten">Mehr zu den Räumlichkeiten →</a></p>
+      </div>
+    </div>
+    <div class="gallery" data-drag-scroll style="margin-top: 64px; padding-inline: 0" tabindex="0" role="region" aria-label="Fotogalerie der Räumlichkeiten – mit der Maus ziehen oder mit den Pfeiltasten blättern">
+      {gallery.map((p) => <Image data-reveal="up" style="--d: 200ms" src={p.src} alt={p.alt} width={688} height={917} widths={[344, 516, 688]} sizes="(max-width: 480px) 72vw, 344px" fit="cover" quality={72} loading="lazy" decoding="async" />)}
+    </div>
+  </section>
+
+  <section class="section" id="events">
+    <span class="dots br" aria-hidden="true"></span>
+    <div class="container">
+      <div class="section-head">
+        <h2 class="section-title">Aktuelle Events</h2>
+        <a class="btn btn-xs" href="/events">Entdecken</a>
+      </div>
+      {
+        shown.length ? (
+          <div class="event-list">
+            {shown.map((e) => <EventRow event={e} />)}
+          </div>
+        ) : (
+          <p class="empty-note">Aktuell sind keine Events geplant – schau bald wieder vorbei. Rückblick: <a href="/events/archiv">vergangene Events</a>.</p>
+        )
+      }
+      <div class="btn-row" style="margin-top: 40px">
+        {upcoming.length > HOME_EVENTS && <a class="btn" href="/events">Alle {upcoming.length} Events ansehen</a>}
+        <a class="btn btn-ghost" href="/events/archiv">Vergangene Events</a>
+        <a class="btn btn-ghost" href={SITE.ticketsUrl} target="_blank" rel="noopener">Zu allen Vorverkaufstickets</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="faq">
+    <div class="container">
+      <h2 class="section-title">Häufige Fragen</h2>
+      <Faq items={faq} />
+    </div>
+  </section>
+</BaseLayout>

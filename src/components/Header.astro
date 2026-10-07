@@ -1,0 +1,38 @@
+---
+import logo from '../assets/logos/kult61-neg-all.svg';
+import { NAV_LINKS, NAV_BUTTONS, SITE, MAIL_ANFRAGE } from '../config/site';
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => href !== '/' && (path === href || path.startsWith(`${href}/`));
+---
+
+<div class="topbar">
+  <a href={SITE.ticketsUrl} target="_blank" rel="noopener">Zu allen Vorverkaufstickets</a>
+</div>
+<header class="site-header">
+  <div class="header-bar">
+    <a class="brand" href="/" aria-label="KULT61 – Startseite">
+      <img src={logo.src} width="98" height="80" alt="KULT61 – Kunst Kultur Events" />
+    </a>
+    <nav class="nav" aria-label="Hauptnavigation">
+      <div class="nav-links">
+        {NAV_LINKS.map((item) => <a href={item.href}>{item.label}</a>)}
+      </div>
+      <div class="nav-actions">
+        {
+          NAV_BUTTONS.map((item) => (
+            <a class="btn" href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+              {item.label}
+            </a>
+          ))
+        }
+        <a class="btn" href={MAIL_ANFRAGE}>Anfrage</a>
+      </div>
+      <div class="nav-contact">
+        <p>Let's talk</p>
+        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      </div>
+    </nav>
+    <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false"><span></span></button>
+  </div>
+</header>

@@ -1,0 +1,47 @@
+---
+import { Image } from 'astro:assets';
+import { eventUrl, formatDateShort, isoDay, type EventEntry } from '../lib/events';
+
+interface Props {
+  event: EventEntry;
+  eager?: boolean;
+}
+const { event, eager = false } = Astro.props;
+const { title, date, poster, posterAlt, categories, status } = event.data;
+
+// "Event" steht wie auf der bisherigen Seite zuletzt: "Musik - Event"
+const cats = [...categories.filter((c) => c !== 'Event'), ...categories.filter((c) => c === 'Event')];
+const cancelled = status === 'cancelled';
+---
+
+<a
+  class:list={['event-row', { 'is-cancelled': cancelled }]}
+  href={eventUrl(event)}
+  data-reveal="fade"
+  data-cats={categories.join(' ').toLowerCase()}
+  data-q={`${title} ${categories.join(' ')} ${isoDay(date).slice(0, 4)}`.toLowerCase()}
+>
+  <div class="thumb">
+    {
+      poster && (
+        <Image
+          src={poster}
+          alt=""
+          width={640}
+          height={640}
+          widths={[244, 480, 640]}
+          sizes="(min-width: 960px) 125px, calc(100vw - 72px)"
+          fit="cover"
+          quality={72}
+          loading={eager ? 'eager' : 'lazy'}
+          decoding="async"
+        />
+      )
+    }
+  </div>
+  <div class="event-title">
+    {cancelled && <span class="badge">Abgesagt</span>}{title} | <time datetime={isoDay(date)}>{formatDateShort(date)}</time>
+  </div>
+  <div class="event-cats">{cats.join(' - ')}</div>
+  <div class="event-more">Mehr erfahren</div>
+</a>

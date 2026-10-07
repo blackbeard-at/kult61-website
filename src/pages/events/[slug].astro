@@ -1,0 +1,142 @@
+---
+import { Image, getImage } from 'astro:assets';
+import { render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventRow from '../../components/EventRow.astro';
+import {
+  getAllEvents,
+  getUpcomingEvents,
+  eventUrl,
+  eventDescription,
+  eventMetaDescription,
+  bodyPlain,
+  eventJsonLd,
+  formatDateLong,
+  formatDateShort,
+  isoDay,
+  todayBerlin,
+  absoluteUrl,
+} from '../../lib/events';
+import { breadcrumb } from '../../lib/seo';
+import { SITE } from '../../config/site';
+
+export async function getStaticPaths() {
+  const events = await getAllEvents();
+  return events.map((event) => ({ params: { slug: event.id }, props: { event } }));
+}
+
+const { event } = Astro.props;
+const { title, date, doors, start, categories, status, admission, ticketUrl, poster, posterAlt } = event.data;
+const { Content } = await render(event);
+
+const short = formatDateShort(date);
+const isPast = isoDay(date) < todayBerlin();
+const cancelled = status === 'cancelled';
+const cats = [...categories.filter((c) => c !== 'Event'), ...categories.filter((c) => c === 'Event')];
+
+// Klartext des Beschreibungstexts für Meta/Schema
+const bodyText = bodyPlain(event);
+const description = eventDescription(event, bodyText);
+const metaDescription = eventMetaDescription(event, bodyText);
+
+const posterOg = poster ? await getImage({ src: poster, width: Math.min(1200, poster.width), format: 'jpg', quality: 80 }) : undefined;
+const jsonLd = [
+  eventJsonLd(event, { description, imageUrl: posterOg ? absoluteUrl(posterOg.src) : undefined }),
+  breadcrumb([
+    ['Events', '/events'],
+    [title, eventUrl(event)],
+  ]),
+];
+
+const others = (await getUpcomingEvents()).filter((e) => e.id !== event.id).slice(0, 3);
+---
+
+<BaseLayout
+  title={`${title} – ${short} | KULT61 Hanau`}
+  description={metaDescription}
+  path={eventUrl(event)}
+  image={poster}
+  ogType="website"
+  jsonLd={jsonLd}
+>
+  <section class:list={['page-hero', { 'has-bg': !!poster }]}>
+    {
+      poster && (
+        <div class="hero-bg" aria-hidden="true">
+          <Image src={poster} alt="" width={900} quality={50} loading="eager" />
+        </div>
+      )
+    }
+    <p class="eyebrow">In {cats.join(', ')}</p>
+    <h1>{title} <span aria-hidden="true">|</span> <time datetime={isoDay(date)}>{short}</time></h1>
+  </section>
+
+  <section class="section">
+    <div class="container event-detail">
+      <div class="poster">
+        {
+          poster ? (
+            <Image
+              src={poster}
+              alt={posterAlt ?? `Plakat: ${title}`}
+              widths={[480, 720, 1000]}
+              sizes="(min-width: 900px) 45vw, 100vw"
+              quality={78}
+              loading="eager"
+              fetchpriority="high"
+            />
+          ) : null
+        }
+      </div>
+
+      <div>
+        {cancelled && <p class="notice cancelled">Dieses Event wurde abgesagt.</p>}
+        {!cancelled && isPast && <p class="notice">Dieses Event hat bereits stattgefunden. Die <a href="/events">aktuellen Events</a> findest du im Kalender.</p>}
+
+        <dl class="facts-list">
+          <div>
+            <dt>Datum</dt>
+            <dd><time datetime={isoDay(date)}>{formatDateLong(date)}</time></dd>
+          </div>
+          {doors && <div><dt>Einlass</dt><dd>{doors} Uhr</dd></div>}
+          {start && <div><dt>Beginn</dt><dd>{start} Uhr</dd></div>}
+          {admission && <div><dt>Eintritt</dt><dd>{admission}</dd></div>}
+          <div>
+            <dt>Ort</dt>
+            <dd>
+              KULT61
+              <small>{SITE.address.street}, {SITE.address.zip} {SITE.address.city}-{SITE.address.district}<br />{SITE.locationNote}</small>
+            </dd>
+          </div>
+        </dl>
+
+        {bodyText && <div class="event-text"><Content /></div>}
+
+        {
+          !cancelled && !isPast && (
+            <div class="btn-row">
+              {ticketUrl ? (
+                <a class="btn" href={ticketUrl} target="_blank" rel="noopener">Tickets</a>
+              ) : (
+                <a class="btn" href={SITE.ticketsUrl} target="_blank" rel="noopener">Zu allen Vorverkaufstickets</a>
+              )}
+              <a class="btn btn-ghost" href="/events">Alle Events</a>
+            </div>
+          )
+        }
+        {(cancelled || isPast) && <div class="btn-row"><a class="btn" href="/events">Aktuelle Events</a><a class="btn btn-ghost" href="/events/archiv">Vergangene Events</a></div>}
+      </div>
+    </div>
+  </section>
+
+  {
+    others.length > 0 && (
+      <section class="section" style="padding-top: 0">
+        <div class="container">
+          <h2 class="section-title" style="font-size: clamp(24px, 3vw, 40px); margin-bottom: 36px">Weitere Events</h2>
+          <div class="event-list">{others.map((e) => <EventRow event={e} />)}</div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

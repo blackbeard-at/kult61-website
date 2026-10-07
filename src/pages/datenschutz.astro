@@ -1,0 +1,162 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { breadcrumb } from '../lib/seo';
+import { SITE } from '../config/site';
+
+const op = SITE.operator;
+---
+
+<BaseLayout
+  title="Datenschutzerklärung | KULT61 Hanau-Großauheim"
+  description="Datenschutzerklärung der Website kult61.de: Welche Daten beim Besuch verarbeitet werden, wer die Seite hostet und welche Rechte Sie haben."
+  path="/datenschutz"
+  jsonLd={[breadcrumb([['Datenschutz', '/datenschutz']])]}
+>
+  <section class="page-hero">
+    <h1>Datenschutzerklärung</h1>
+  </section>
+
+  <div class="prose">
+    <p class="stand">Stand: Oktober 2026</p>
+
+    <h2 id="verantwortlicher" style="margin-top: 0">1. Verantwortlicher</h2>
+    <address>
+      {op.name}<br />
+      {op.street}<br />
+      {op.zip} {op.city}<br />
+      {op.country}<br />
+      E-Mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </address>
+    <p>Weitere Angaben zum Anbieter finden Sie im <a href="/impressum">Impressum</a>.</p>
+
+    <h2 id="ueberblick">2. Kurzüberblick</h2>
+    <p>
+      Diese Website ist bewusst datensparsam aufgebaut. Wir verwenden <strong>keine Analyse- oder Tracking-Dienste</strong>, <strong>keine Werbe- oder Marketing-Cookies</strong>,
+      <strong>keine Social-Media-Plugins</strong>, <strong>keine eingebetteten Videos oder Karten</strong>, <strong>kein Kontaktformular</strong> und keinen Newsletter. Schriftarten werden von unserem
+      eigenen Server ausgeliefert. Verarbeitet werden daher nur die Daten, die technisch beim Aufruf der Seite anfallen, sowie Daten, die Sie uns selbst per E-Mail mitteilen.
+    </p>
+
+    <h2 id="rechtsgrundlagen">3. Rechtsgrundlagen</h2>
+    <p>Wir verarbeiten personenbezogene Daten auf Grundlage der folgenden Vorschriften der Datenschutz-Grundverordnung (DSGVO):</p>
+    <ul>
+      <li><strong>Art. 6 Abs. 1 lit. b DSGVO</strong> – Vertragserfüllung und vorvertragliche Maßnahmen (z.&nbsp;B. Anfragen zur Anmietung der Räume),</li>
+      <li><strong>Art. 6 Abs. 1 lit. f DSGVO</strong> – berechtigte Interessen (sicherer und stabiler Betrieb der Website, Beantwortung allgemeiner Anfragen),</li>
+      <li><strong>Art. 6 Abs. 1 lit. a DSGVO</strong> – Einwilligung (nur falls wir Sie im Einzelfall um eine Einwilligung bitten),</li>
+      <li><strong>Art. 6 Abs. 1 lit. c DSGVO</strong> – rechtliche Verpflichtung (z.&nbsp;B. handels- und steuerrechtliche Aufbewahrungspflichten).</li>
+    </ul>
+    <p>Soweit Informationen auf Ihrem Endgerät gespeichert oder abgerufen werden, gilt zusätzlich § 25 TDDDG (siehe Abschnitt 6).</p>
+
+    <h2 id="hosting">4. Hosting und Zugriffsdaten (Server-Logfiles)</h2>
+    <p>
+      Diese Website wird als statische Website über die Infrastruktur der Cloudflare, Inc., 101 Townsend St., San Francisco, CA 94107, USA („Cloudflare“) ausgeliefert. Beim Aufruf
+      der Website verarbeitet Cloudflare als unser Auftragsverarbeiter technisch erforderliche Zugriffsdaten, um die Seiten auszuliefern und die Website vor Missbrauch und Angriffen zu schützen.
+      Dazu gehören insbesondere:
+    </p>
+    <ul>
+      <li>IP-Adresse des anfragenden Geräts,</li>
+      <li>Datum und Uhrzeit des Zugriffs,</li>
+      <li>aufgerufene Seite bzw. Datei und übertragene Datenmenge,</li>
+      <li>HTTP-Statuscode,</li>
+      <li>Browsertyp und -version, Betriebssystem sowie ggf. die zuvor besuchte Seite (Referrer).</li>
+    </ul>
+    <p>
+      <strong>Zweck und Rechtsgrundlage:</strong> Auslieferung der Website, Gewährleistung von Stabilität und Sicherheit (Art. 6 Abs. 1 lit. f DSGVO). Unser berechtigtes Interesse liegt
+      im sicheren und effizienten Betrieb des Onlineangebots. Wir selbst speichern keine Logfiles und führen die Zugriffsdaten nicht mit anderen Daten zusammen.
+    </p>
+    <p>
+      <strong>Drittlandübermittlung:</strong> Cloudflare ist ein US-Unternehmen. Die Datenübermittlung stützt sich auf den Angemessenheitsbeschluss der EU-Kommission zum
+      EU-US Data Privacy Framework, dem Cloudflare beigetreten ist, sowie ergänzend auf Standardvertragsklauseln im Rahmen der Auftragsverarbeitungsvereinbarung. Die Auslieferung erfolgt über ein
+      weltweites Netzwerk; Daten können daher auch außerhalb der EU verarbeitet werden. Weitere Informationen:
+      <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener">cloudflare.com/privacypolicy</a>.
+    </p>
+
+    <h2 id="cookies">5. Cookies und lokale Speicherung</h2>
+    <p>
+      Diese Website setzt <strong>keine Cookies für Analyse-, Komfort- oder Marketingzwecke</strong> und speichert keine solchen Informationen im Speicher Ihres Endgeräts. Aus diesem Grund ist kein Cookie-Banner erforderlich.
+    </p>
+    <p>
+      Technisch notwendig sind lediglich Verbindungsdaten, die Cloudflare im Rahmen der Auslieferung und Absicherung verarbeitet (siehe Abschnitt 4). Sollte Cloudflare dafür im Einzelfall ein
+      technisch notwendiges Cookie oder einen vergleichbaren Speichereintrag setzen (z.&nbsp;B. zur Erkennung automatisierter Zugriffe), erfolgt dies auf Grundlage von § 25 Abs. 2 Nr. 2 TDDDG, da der Zugriff zur Bereitstellung des
+      von Ihnen gewünschten Dienstes unbedingt erforderlich ist.
+    </p>
+
+    <h2 id="schriften">6. Schriftarten</h2>
+    <p>
+      Wir verwenden die Schriftart „Inter“. Sie wird lokal von unserem eigenen Server ausgeliefert. Es erfolgt keine Verbindung zu Servern von Google oder anderen Schriftarten-Anbietern, und es werden keine Daten
+      dorthin übermittelt.
+    </p>
+
+    <h2 id="kontakt">7. Kontaktaufnahme per E-Mail</h2>
+    <p>
+      Wenn Sie uns per E-Mail kontaktieren (z.&nbsp;B. über die E-Mail-Links „Anfrage“ oder „Jetzt Termin sichern“), öffnet sich Ihr E-Mail-Programm; die Nachricht wird erst durch Ihr Absenden an uns übermittelt.
+      Wir verarbeiten dann Ihre E-Mail-Adresse, den Inhalt Ihrer Nachricht und – falls Sie diese angeben – weitere Angaben wie Ihren Namen, Ihre Telefonnummer oder Ihren Veranstaltungswunsch.
+    </p>
+    <p>
+      <strong>Zweck und Rechtsgrundlage:</strong> Bearbeitung und Beantwortung Ihrer Anfrage sowie ggf. Vorbereitung eines Mietvertrags (Art. 6 Abs. 1 lit. b DSGVO), im Übrigen unser berechtigtes Interesse an der
+      Kommunikation mit Interessenten und Gästen (Art. 6 Abs. 1 lit. f DSGVO).
+    </p>
+    <p>
+      <strong>E-Mail-Dienst:</strong> Unser E-Mail-Postfach wird von der STRATO AG, Pascalstraße 10, 10587 Berlin, Deutschland, als Auftragsverarbeiter betrieben. STRATO verarbeitet E-Mails nach eigenen Angaben in Rechenzentren in Deutschland.
+      Bitte beachten Sie, dass die Übertragung per E-Mail ohne Ende-zu-Ende-Verschlüsselung Sicherheitslücken aufweisen kann; senden Sie uns daher keine besonders sensiblen Daten.
+    </p>
+    <p><strong>Speicherdauer:</strong> Wir löschen Ihre Anfrage, sobald sie abschließend bearbeitet ist und keine gesetzlichen Aufbewahrungspflichten (z.&nbsp;B. handels- oder steuerrechtlich) entgegenstehen.</p>
+
+    <h2 id="eventbrite">8. Ticketverkauf über Eventbrite</h2>
+    <p>
+      Für den Vorverkauf von Tickets verlinken wir auf die Plattform Eventbrite (<a href="https://www.eventbrite.de" target="_blank" rel="noopener">eventbrite.de</a>). Auf unserer Website sind keine Eventbrite-Inhalte eingebunden: Es werden erst dann Daten an
+      Eventbrite übermittelt, wenn Sie auf einen entsprechenden Link („Tickets“, „Zu allen Vorverkaufstickets“) klicken und die Seite von Eventbrite aufrufen. Ab diesem Zeitpunkt gelten die Datenschutzhinweise von
+      Eventbrite; für die Verarbeitung Ihrer Daten beim Ticketkauf ist Eventbrite als Betreiber der Plattform verantwortlich. Bitte informieren Sie sich dort über Art, Umfang und Zweck der Verarbeitung.
+    </p>
+
+    <h2 id="links">9. Externe Links</h2>
+    <p>
+      Diese Website enthält Links zu externen Websites Dritter (z.&nbsp;B. Eventbrite). Auf deren Inhalte und Datenverarbeitung haben wir keinen Einfluss. Beim Aufruf eines externen Links
+      gilt die Datenschutzerklärung des jeweiligen Anbieters.
+    </p>
+
+    <h2 id="kalender">10. Kalender-Feed</h2>
+    <p>
+      Unseren Eventkalender können Sie als Kalender-Feed (<a href="/events.ics">/events.ics</a>) in Ihrer Kalender-App abonnieren. Beim Abruf des Feeds fallen nur die unter Abschnitt 4 beschriebenen technischen Zugriffsdaten an. Eine Anmeldung ist nicht erforderlich; wir erfahren nicht, wer den Feed abonniert.
+    </p>
+
+    <h2 id="empfaenger">11. Empfänger Ihrer Daten</h2>
+    <p>
+      Eine Weitergabe Ihrer Daten an Dritte erfolgt nur, soweit dies zur Bereitstellung der Website erforderlich ist (Cloudflare als Hosting-Dienstleister, STRATO als E-Mail-Dienstleister, jeweils als
+      Auftragsverarbeiter), Sie eingewilligt haben oder wir gesetzlich dazu verpflichtet sind. Eine Übermittlung zu Werbezwecken findet nicht statt.
+    </p>
+
+    <h2 id="rechte">12. Ihre Rechte</h2>
+    <p>Sie haben uns gegenüber folgende Rechte hinsichtlich der Sie betreffenden personenbezogenen Daten:</p>
+    <ul>
+      <li>Recht auf Auskunft (Art. 15 DSGVO),</li>
+      <li>Recht auf Berichtigung (Art. 16 DSGVO),</li>
+      <li>Recht auf Löschung (Art. 17 DSGVO),</li>
+      <li>Recht auf Einschränkung der Verarbeitung (Art. 18 DSGVO),</li>
+      <li>Recht auf Datenübertragbarkeit (Art. 20 DSGVO),</li>
+      <li>Recht auf Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO),</li>
+      <li>Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).</li>
+    </ul>
+    <p>Zur Ausübung Ihrer Rechte genügt eine formlose Nachricht an <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+
+    <h2 id="beschwerde">13. Beschwerderecht bei der Aufsichtsbehörde</h2>
+    <p>
+      Sie haben das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO). Für uns zuständig ist:
+    </p>
+    <address>
+      Der Hessische Beauftragte für Datenschutz und Informationsfreiheit<br />
+      Gustav-Stresemann-Ring 1<br />
+      65189 Wiesbaden<br />
+      <a href="https://datenschutz.hessen.de" target="_blank" rel="noopener">datenschutz.hessen.de</a>
+    </address>
+
+    <h2 id="sicherheit">14. Sicherheit</h2>
+    <p>
+      Die Übertragung der Inhalte dieser Website erfolgt verschlüsselt über HTTPS (TLS). Wir treffen angemessene technische und organisatorische Maßnahmen, um Ihre Daten zu schützen.
+    </p>
+
+    <h2 id="aenderungen">15. Änderungen dieser Datenschutzerklärung</h2>
+    <p>
+      Wir passen diese Datenschutzerklärung an, wenn sich die Website oder die rechtlichen Anforderungen ändern – zum Beispiel, wenn wir künftig Statistik-, Karten- oder Social-Media-Dienste einbinden. Es gilt die jeweils hier veröffentlichte Fassung.
+    </p>
+  </div>
+</BaseLayout>

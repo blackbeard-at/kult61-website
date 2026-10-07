@@ -1,0 +1,227 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Faq from '../components/Faq.astro';
+import { gallery, photos, raumHeaderPhoto } from '../lib/photos';
+import { breadcrumb, faqJsonLd, type FaqItem } from '../lib/seo';
+import { SITE, MAIL_RAUM, ROOMS } from '../config/site';
+
+const { standing, seated } = SITE.capacity;
+
+// Nur belegte Fakten (Live-Seite + Angaben des Kunden vom 07.10.2026)
+const faq: FaqItem[] = [
+  {
+    q: 'Wie viele Personen passen ins KULT61?',
+    a: `<p>Stehend, ohne Tische und Stühle, haben bis zu <strong>${standing} Personen</strong> Platz. Mit Tischen und Stühlen – zum Beispiel bei Geburtstagen oder ähnlichen Veranstaltungen – sind es <strong>${seated} Personen</strong>.</p>`,
+  },
+  {
+    q: 'Wofür kann ich die Räumlichkeiten mieten?',
+    a: '<p>Die Räumlichkeiten eignen sich für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzabende und Tanzkurse, Konzerte, kreative Workshops und Kurse sowie für regelmäßige Events.</p>',
+  },
+  {
+    q: 'Wie lange kann ich die Räume mieten?',
+    a: '<p>Die Vermietung ist stundenweise, tageweise oder für feste Wochentermine möglich.</p>',
+  },
+  {
+    q: 'Läuft die Theke über das KULT61-Team? Gibt es Personal?',
+    a: '<p>Ja. Die Theke läuft normalerweise über uns, unser Personal steht zur Verfügung. Zur Ausstattung gehört eine Theke mit Kühlschränken.</p>',
+  },
+  {
+    q: 'Wer kümmert sich um die Getränke?',
+    a: '<p>Die Getränkeeinkäufe machen wir für dich. Wir müssen nur wissen, was du haben möchtest – teile uns deine Getränkewünsche einfach bei der Anfrage mit.</p>',
+  },
+  {
+    q: 'Kann ich eigene Getränke mitbringen?',
+    a: '<p>Ja, eigene Getränke können nach Absprache mitgebracht werden. Sprich uns bei deiner Anfrage einfach darauf an.</p>',
+  },
+  {
+    q: 'Gibt es Catering?',
+    a: '<p>Wir arbeiten mit Cateringfirmen zusammen. Wenn du für deine Veranstaltung Catering möchtest, sprich uns bei deiner Anfrage darauf an.</p>',
+  },
+  {
+    q: 'Welche Ausstattung ist vorhanden?',
+    a: '<p>Vorhanden sind eine Bühne, eine Licht- und Soundanlage, eine Theke mit Kühlschränken und Sitzgelegenheiten.</p>',
+  },
+  {
+    q: 'Gibt es Parkplätze?',
+    a: '<p>Ja, rund um das Gebäude sind ausreichend Parkplätze vorhanden. Das KULT61 liegt in einer ehemaligen KFZ-Halle in der Nähe des Bahnhofs Großauheim.</p>',
+  },
+  {
+    q: 'Wo liegt das KULT61 und wie frage ich einen Termin an?',
+    a: `<p>Das KULT61 befindet sich in der ${SITE.address.street}, ${SITE.address.zip} ${SITE.address.city}-${SITE.address.district}. Schick deine Anfrage per E-Mail an <a href="${MAIL_RAUM}">${SITE.email}</a> – mit Wunschtermin, Anlass, Personenzahl, Getränkewünschen (oder eigenen Getränken) und ob du Catering möchtest.</p>`,
+  },
+];
+
+const rentalService = {
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: 'Eventlocation mieten in Hanau-Großauheim',
+  serviceType: 'Vermietung von Veranstaltungsräumen',
+  description: `Stilvolle Location für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Konzerte, Workshops und regelmäßige Events. Platz für bis zu ${standing} Personen stehend bzw. ${seated} Personen mit Tischen und Stühlen. Mit Bühne, Licht- und Soundanlage, Theke mit Personal, Getränkeeinkauf durch das KULT61-Team (eigene Getränke nach Absprache) und Catering-Partnern. Stundenweise, tageweise oder für feste Wochentermine.`,
+  provider: { '@id': `${SITE.url}/#venue` },
+  areaServed: { '@type': 'Place', name: 'Hanau, Großauheim und Umgebung' },
+  availableChannel: { '@type': 'ServiceChannel', serviceUrl: `${SITE.url}${ROOMS.path}` },
+};
+
+const uses = [
+  ['Geburtstage & Feiern', `Geburtstage, kleinere Feiern und ähnliche Veranstaltungen – mit Tischen und Stühlen für ${seated} Personen.`],
+  ['Tanzabende & Tanzkurse', 'Tanzfläche, Licht- und Soundanlage sind vorhanden – für Tanzabende, Tanzkurse und Partys.'],
+  ['Konzerte & Live-Events', 'Bühne, Licht und Sound sind da. Im KULT61 selbst finden regelmäßig Konzerte statt.'],
+  ['Workshops & Kurse', 'Kreative Workshops und Kurse – stundenweise oder tageweise.'],
+  ['Regelmäßige Events', 'Feste Wochentermine sind möglich – ideal für Kurse und wiederkehrende Veranstaltungen.'],
+  ['Eigene Events & Projekte', 'Du willst selbst etwas auf die Beine stellen? Raum für deine Ideen, Netzwerk und technisches Know-how & Support gibt es dazu.'],
+];
+---
+
+<BaseLayout
+  title={`Location mieten in Hanau-Großauheim: bis ${standing} Gäste | KULT61`}
+  description={`Eventlocation in Hanau-Großauheim mieten: bis zu ${standing} Gäste stehend, ${seated} mit Bestuhlung. Bühne, Licht & Sound, Theke mit Personal, Getränke & Catering.`}
+  path={ROOMS.path}
+  image={photos.publikumLila.src}
+  jsonLd={[breadcrumb([[ROOMS.label, ROOMS.path]]), rentalService, faqJsonLd(faq)]}
+>
+  <section class="page-hero has-bg photo-hero">
+    <div class="hero-bg">
+      <Image
+        src={raumHeaderPhoto.src}
+        alt={raumHeaderPhoto.alt}
+        widths={[800, 1280, 1920, 2800]}
+        sizes="(max-width: 959px) 200vw, 100vw"
+        quality={74}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+    <p class="eyebrow">Unsere Räumlichkeiten</p>
+    <h1>Eventlocation mieten in Hanau-Großauheim</h1>
+  </section>
+
+  <section class="section">
+    <div class="container rooms">
+      <div>
+        <h2 class="section-title md">Deine Location für Feiern, Konzerte &amp; Workshops</h2>
+        <p style="margin-top: 32px">Du suchst eine stilvolle Location für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Workshops oder regelmäßige Events?<br />Dann ist das KULT 61 genau das Richtige für dich!</p>
+        <p>Das KULT61 ist eine ehemalige KFZ-Halle in Hanau-Großauheim mit Platz für bis zu {standing} Gäste, eigener Theke samt Personal und Partnern für Getränke und Catering.</p>
+        <a class="btn" href={MAIL_RAUM}>Jetzt Termin sichern</a>
+      </div>
+      <div class="facts">
+        <h2 style="font-size: 20px; margin-bottom: 22px">Auf einen Blick</h2>
+        <dl class="facts-list">
+          <div><dt>Kapazität</dt><dd>Bis zu {standing} Personen stehend<small>{seated} Personen mit Tischen und Stühlen</small></dd></div>
+          <div><dt>Ausstattung</dt><dd>Bühne, Licht- &amp; Soundanlage, Theke mit Kühlschränken, Sitzgelegenheiten</dd></div>
+          <div><dt>Service</dt><dd>Theke mit Personal, Getränkeeinkauf durch uns (eigene Getränke nach Absprache), Catering-Partner</dd></div>
+          <div><dt>Vermietung</dt><dd>Stundenweise, tageweise oder für feste Wochentermine möglich</dd></div>
+          <div><dt>Parkplätze</dt><dd>Rund um das Gebäude ausreichend vorhanden</dd></div>
+          <div><dt>Ideal für</dt><dd>Feiern, Tanzabende, Konzerte, kreative Workshops, Kurse u.&nbsp;v.&nbsp;m.</dd></div>
+          <div>
+            <dt>Adresse</dt>
+            <dd>
+              {SITE.address.street}, {SITE.address.zip} {SITE.address.city}-{SITE.address.district}
+              <small>{SITE.locationNote}</small>
+            </dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0" id="kapazitaet">
+    <div class="container">
+      <h2 class="section-title md">Platz für bis zu {standing} Gäste</h2>
+      <p class="section-intro">Wie viele Personen ins KULT61 passen, hängt davon ab, wie du die Halle nutzt – mit oder ohne Tische und Stühle.</p>
+      <div class="stats">
+        <div class="stat">
+          <p class="stat-num">{standing}</p>
+          <p class="stat-label">Personen stehend</p>
+          <p>Ohne Tische und Stühle.</p>
+        </div>
+        <div class="stat">
+          <p class="stat-num">{seated}</p>
+          <p class="stat-label">Personen mit Bestuhlung</p>
+          <p>Mit Tischen und Stühlen – zum Beispiel für Geburtstage oder ähnliche Veranstaltungen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0" id="nutzung">
+    <div class="container">
+      <h2 class="section-title md">Geburtstag, Feier oder Konzert – wofür sich die Halle eignet</h2>
+      <div class="use-grid">
+        {uses.map(([title, text]) => <div><h3>{title}</h3><p>{text}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0" id="service">
+    <div class="container">
+      <h2 class="section-title md">Theke, Getränke &amp; Catering</h2>
+      <p class="section-intro">Du musst dich nicht um alles selbst kümmern: Das KULT61-Team kümmert sich normalerweise um die Theke und besorgt die Getränke – eigene Getränke sind nach Absprache möglich.</p>
+      <div class="offer-grid flat" style="margin-top: 48px">
+        <div>
+          <h3>Theke &amp; Personal</h3>
+          <p>Die Theke läuft normalerweise über uns – unser Personal steht dir zur Verfügung. Eine Theke mit Kühlschränken ist vorhanden.</p>
+        </div>
+        <div>
+          <h3>Getränke</h3>
+          <p>Die Getränkeeinkäufe machen wir für dich. Wir müssen nur wissen, was du haben möchtest. Eigene Getränke kannst du nach Absprache mitbringen.</p>
+        </div>
+        <div>
+          <h3>Catering</h3>
+          <p>Wir arbeiten mit Cateringfirmen zusammen. Sprich uns bei deiner Anfrage darauf an, wenn du Catering möchtest.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0">
+    <div class="container">
+      <h2 class="section-title md" style="margin-bottom: 36px">Einblicke</h2>
+    </div>
+    <div class="gallery" data-drag-scroll tabindex="0" role="region" aria-label="Fotogalerie der Räumlichkeiten – mit der Maus ziehen oder mit den Pfeiltasten blättern">
+      {gallery.map((p) => <Image data-reveal="up" style="--d: 200ms" src={p.src} alt={p.alt} width={688} height={917} widths={[344, 516, 688]} sizes="(max-width: 480px) 72vw, 344px" fit="cover" quality={72} loading="lazy" decoding="async" />)}
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0" id="lage">
+    <div class="container rooms">
+      <div>
+        <h2 class="section-title md">Lage: ehemalige KFZ-Halle in Hanau-Großauheim</h2>
+      </div>
+      <div class="facts">
+        <p>
+          Das KULT61 liegt in der <strong>{SITE.address.street}, {SITE.address.zip} {SITE.address.city}-{SITE.address.district}</strong> – in einer ehemaligen KFZ-Halle in der Nähe des Bahnhofs Großauheim.
+        </p>
+        <p>Rund um das Gebäude sind ausreichend Parkplätze vorhanden.</p>
+        <p>Im KULT61 finden regelmäßig Konzerte, Partys und mehr statt – einen Eindruck bekommst du im <a href="/events">Eventkalender</a>.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0" id="anfrage">
+    <div class="container">
+      <div class="cta-band">
+        <div>
+          <h2>Jetzt Termin anfragen</h2>
+          <p>Schreib uns eine E-Mail an {SITE.email}. Diese Angaben helfen uns bei deiner Anfrage:</p>
+          <ul class="checklist">
+            <li>Wunschtermin oder Zeitraum</li>
+            <li>Anlass der Veranstaltung</li>
+            <li>Anzahl der Personen – stehend oder mit Tischen und Stühlen</li>
+            <li>Getränkewünsche – oder ob du eigene Getränke mitbringen möchtest</li>
+            <li>Catering gewünscht oder nicht</li>
+          </ul>
+        </div>
+        <a class="btn" href={MAIL_RAUM}>Anfrage per E-Mail</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" style="padding-top: 0" id="faq">
+    <div class="container">
+      <h2 class="section-title md">Häufige Fragen zur Vermietung</h2>
+      <Faq items={faq} />
+    </div>
+  </section>
+</BaseLayout>

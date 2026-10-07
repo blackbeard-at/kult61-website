@@ -1,0 +1,56 @@
+---
+import { Image } from 'astro:assets';
+import logoSmall from '../assets/logos/kult61-neg-all-small.svg';
+import symbol from '../assets/logos/kult61-neg-symbol.svg';
+import bannerPhoto from '../assets/images/abend-7rv7382.jpg';
+import { SITE, MAIL_ANFRAGE, ROOMS } from '../config/site';
+
+const year = new Date().getFullYear();
+---
+
+<section class="footer-banner" aria-label="KULT61 – Kunst Kultur Events">
+  <div class="bg">
+    <Image src={bannerPhoto} alt="" width={1800} quality={70} loading="lazy" />
+  </div>
+  <img class="logo" src={logoSmall.src} width="576" height="377" alt="KULT61 – Kunst Kultur Events" loading="lazy" />
+</section>
+
+<footer class="site-footer" id="kontakt">
+  <div class="container">
+    <div class="footer-grid">
+      <nav aria-label="Footer-Navigation">
+        <h2>Navigation</h2>
+        <ul>
+          <li><a href="/">Home</a></li>
+          <li><a href="/events">Events</a></li>
+          <li><a href={ROOMS.path}>{ROOMS.label}</a></li>
+          <li><a href="/#mitmachen">Mitmachen</a></li>
+          <li><a href="/#kontakt">Kontakt</a></li>
+          <li><a href="/impressum">Impressum</a></li>
+          <li><a href="/datenschutz">Datenschutz</a></li>
+        </ul>
+      </nav>
+      <div>
+        <h2>Leistungen</h2>
+        <ul>
+          <li><a href="/#mitmachen">Raum für deine Ideen</a></li>
+          <li><a href="/#mitmachen">Netzwerk mit Kreativen</a></li>
+          <li><a href="/#mitmachen">Technisches Know-how</a></li>
+          <li><a href="/#mitmachen">Technischer Support</a></li>
+          <li><a href={ROOMS.path}>Vermietungen</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2><mark>KULT61</mark></h2>
+        <address>
+          {SITE.address.street}<br />
+          {SITE.address.zip} {SITE.address.city}<br />
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        </address>
+        <a class="btn" href={MAIL_ANFRAGE}>Anfragen</a>
+      </div>
+      <img class="footer-symbol" src={symbol.src} width="270" height="148" alt="" loading="lazy" />
+    </div>
+    <p class="copyright">© {year} KULT61. Alle Rechte vorbehalten.</p>
+  </div>
+</footer>

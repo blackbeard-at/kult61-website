@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import EventRow from '../../components/EventRow.astro';
+import { getPastEvents } from '../../lib/events';
+import { breadcrumb } from '../../lib/seo';
+
+const past = await getPastEvents();
+const categories = [...new Set(past.flatMap((e) => e.data.categories))].filter((c) => c !== 'Event').sort();
+---
+
+<BaseLayout
+  title="Vergangene Events im KULT61 Hanau-Großauheim | Archiv"
+  description={`Rückblick auf ${past.length} vergangene Events im KULT61 in Hanau-Großauheim – Konzerte, Partys, Comedy, Song Slam und mehr. Mit Suche und Filter.`}
+  path="/events/archiv"
+  jsonLd={[breadcrumb([['Events', '/events'], ['Vergangene Events', '/events/archiv']])]}
+>
+  <section class="page-hero">
+    <p class="eyebrow"><a href="/events">← Aktuelle Events</a></p>
+    <h1>Vergangene Events</h1>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="toolbar">
+        <label class="sr-only" for="q">Event suchen</label>
+        <input id="q" class="search" type="search" placeholder="Event suchen …" autocomplete="off" />
+        <div class="chips" role="group" aria-label="Nach Kategorie filtern">
+          <button class="chip" type="button" data-cat="" aria-pressed="true">Alle</button>
+          {categories.map((c) => <button class="chip" type="button" data-cat={c.toLowerCase()} aria-pressed="false">{c}</button>)}
+        </div>
+      </div>
+      <p class="sr-only" id="status" aria-live="polite"></p>
+
+      <div class="event-list" id="list">
+        {past.map((e) => <EventRow event={e} />)}
+      </div>
+      <p class="empty-note" id="none" hidden>Keine Events gefunden.</p>
+    </div>
+  </section>
+
+  <script is:inline>
+    (function () {
+      var q = document.getElementById('q');
+      var rows = [].slice.call(document.querySelectorAll('#list .event-row'));
+      var chips = [].slice.call(document.querySelectorAll('.chip'));
+      var none = document.getElementById('none');
+      var status = document.getElementById('status');
+      var cat = '';
+      function apply() {
+        var term = q.value.trim().toLowerCase();
+        var n = 0;
+        rows.forEach(function (r) {
+          var ok = (!term || r.dataset.q.indexOf(term) > -1) && (!cat || r.dataset.cats.split(' ').indexOf(cat) > -1);
+          r.hidden = !ok;
+          if (ok) n++;
+        });
+        none.hidden = n > 0;
+        status.textContent = n + ' Events gefunden';
+      }
+      q.addEventListener('input', apply);
+      chips.forEach(function (c) {
+        c.addEventListener('click', function () {
+          cat = c.dataset.cat;
+          chips.forEach(function (x) {
+            x.setAttribute('aria-pressed', String(x === c));
+          });
+          apply();
+        });
+      });
+    })();
+  </script>
+</BaseLayout>

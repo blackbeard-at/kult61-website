@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import EventRow from '../components/EventRow.astro';
+import { getUpcomingEvents } from '../lib/events';
+
+const next = (await getUpcomingEvents()).slice(0, 3);
+---
+
+<BaseLayout
+  title="Seite nicht gefunden | KULT61"
+  description="Diese Seite gibt es nicht (mehr). Hier geht es zu den aktuellen Events und zur Startseite des KULT61."
+  noindex
+>
+  <section class="page-hero">
+    <p class="eyebrow">Fehler 404</p>
+    <h1>Hier ist nichts los.</h1>
+    <p style="margin: 24px auto 32px; max-width: 560px; color: var(--text-muted)">
+      Diese Seite gibt es nicht (mehr). Vielleicht findest du, was du suchst, bei den aktuellen Events.
+    </p>
+    <div class="btn-row" style="justify-content: center">
+      <a class="btn" href="/events">Aktuelle Events</a>
+      <a class="btn btn-ghost" href="/">Zur Startseite</a>
+    </div>
+  </section>
+  {
+    next.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <div class="event-list">{next.map((e) => <EventRow event={e} />)}</div>
+        </div>
+      </section>
+    )
+  }
+</BaseLayout>

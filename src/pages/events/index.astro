@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { eventsHeaderPhoto } from '../../lib/photos';
+import EventRow from '../../components/EventRow.astro';
+import { getUpcomingEvents, eventUrl, absoluteUrl, formatDateLong } from '../../lib/events';
+import { breadcrumb } from '../../lib/seo';
+import { SITE } from '../../config/site';
+
+const upcoming = await getUpcomingEvents();
+
+const itemList = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Aktuelle Events im KULT61 Hanau-Großauheim',
+  itemListElement: upcoming.map((e, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    url: absoluteUrl(eventUrl(e)),
+    name: `${e.data.title} – ${formatDateLong(e.data.date)}`,
+  })),
+};
+
+const first = upcoming[0];
+const description = first
+  ? `Alle aktuellen Events im KULT61 in Hanau-Großauheim: Konzerte, Partys, Comedy & mehr. Nächstes Event: ${first.data.title}, ${formatDateLong(first.data.date)}. Tickets & Infos.`
+  : 'Konzerte, Partys, Comedy und mehr im KULT61 in Hanau-Großauheim – der Eventkalender mit Terminen, Tickets und Infos.';
+---
+
+<BaseLayout
+  title="Events in Hanau-Großauheim: Konzerte & Partys | KULT61"
+  description={description}
+  path="/events"
+  jsonLd={[breadcrumb([['Events', '/events']]), itemList]}
+>
+  <section class="page-hero has-bg photo-hero shade-light" style="--pos-m: 62% 50%; --pos-d: 50% 50%">
+    <div class="hero-bg">
+      <Image
+        src={eventsHeaderPhoto.src}
+        alt={eventsHeaderPhoto.alt}
+        widths={[800, 1280, 1920, 2800]}
+        sizes="(max-width: 959px) 200vw, 100vw"
+        quality={74}
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+      />
+    </div>
+    <p class="eyebrow">Eventkalender</p>
+    <h1>Aktuelle Events im KULT61</h1>
+    <p class="hero-lead">
+      Konzerte, Partys &amp; DJ-Sets, Comedy und mehr – in der ehemaligen KFZ-Halle in Hanau-Großauheim.
+    </p>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        upcoming.length ? (
+          <div class="event-list">
+            {upcoming.map((e, i) => <EventRow event={e} eager={i < 4} />)}
+          </div>
+        ) : (
+          <p class="empty-note">Aktuell sind keine Events geplant – schau bald wieder vorbei.</p>
+        )
+      }
+      <div class="btn-row" style="margin-top: 48px">
+        <a class="btn" href={SITE.ticketsUrl} target="_blank" rel="noopener">Zu allen Vorverkaufstickets</a>
+        <a class="btn btn-ghost" href="/events/archiv">Vergangene Events</a>
+        <a class="btn btn-ghost" href="/events.ics">Kalender abonnieren (.ics)</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
