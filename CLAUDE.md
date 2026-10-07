@@ -111,8 +111,9 @@ alles — nach dem Go-Live **nie** benutzen).
   eingebettete Videos, Kontaktformular, Newsletter, Social-Media-Profile/-Links,
   Ticket-Widgets. Dann auch einen Cookie-Banner (Consent) ergänzen.
 - Vor Go-Live von einer fachkundigen Stelle (Anwalt/DSB) prüfen lassen.
-- Impressum: Komplementär-GmbH, Geschäftsführung, Registergericht und -nummer sind
-  als „wird nachgereicht“ markiert — bei einer GmbH & Co. KG Pflichtangaben (§ 5 DDG);
+- Impressum: Komplementär-GmbH und Geschäftsführung sind als „wird nachgereicht“ markiert;
+  der Abschnitt „Registereintrag“ (Registergericht/-nummer) wurde auf Arifs Wunsch am
+  07.10.2026 entfernt — bei einer GmbH & Co. KG Pflichtangaben (§ 5 DDG);
   der alte WP-Impressumstext hatte sie nicht.
 
 ## Eigenheiten, die beim Weiterarbeiten wichtig sind
@@ -209,7 +210,7 @@ wegen `p=reject` abgelehnt. Deshalb vorher:
   nicht an den Kunden geschickt.
 - **Nächtlicher Rebuild**, damit vergangene Events ohne Zutun ins Archiv wandern
   (GitHub-Action-Cron oder Cloudflare-Hook).
-- **Impressum**: Komplementär, Geschäftsführung, Registergericht/-nummer nachtragen.
+- **Impressum**: Komplementär, Geschäftsführung nachtragen; Registergericht/-nummer fehlen bewusst (Abschnitt entfernt), bei einer GmbH & Co. KG Pflicht.
 - **Instagram**: In der Kundenmail vom 10.04.2025 steht `@kult_61`; auf der Live-Seite
   ist nichts verlinkt. Wenn verlinkt werden soll: `SITE.instagramUrl` setzen
   (erscheint dann als `sameAs`), Footer-Link ergänzen **und** Social-Media-Absatz in
