@@ -93,9 +93,22 @@ alles — nach dem Go-Live **nie** benutzen).
   Die Anfrage-Buttons öffnen eine Mail mit vorbereitetem Text (`MAIL_RAUM` in
   `src/config/site.ts`: Termin, Anlass, Personenzahl, Getränke, Catering — die fünf
   Punkte im Wortlaut von Arif, 07.10.2026; gilt für alle „Termin sichern“/„Anfrage per E-Mail“-Buttons).
-- **Telefon** `0176 64601977` steht zentral in `SITE.phone`/`phoneIntl`/`phoneHref` (Angabe von Arif,
-  08.10.2026) und wird in Footer, Impressum, Datenschutz, Startseite, `/raum-mieten`, Schema.org
-  (`telephone`, `servicePhone`) und `llms.txt` genutzt — nur dort ändern.
+- **Telefon** `0176 64601977` steht zentral in `SITE.phone`/`phoneIntl` (Angabe von Arif,
+  08.10.2026) und wird in Footer, Impressum, Datenschutz, Startseite und `/raum-mieten` genutzt.
+- **Spam-Schutz für E-Mail und Telefon (08.10.2026)**: Beide stehen **nie als Klartext** im HTML,
+  JSON-LD, Skript oder in `llms.txt`. Immer nur über `<Mail />` / `<Phone />`
+  (`src/components/`) bzw. `mailLink()`/`phoneLink()` aus `src/lib/contact.ts` ausgeben; Mail-Vorlagen
+  (Betreff/Text) stehen als Daten in `MAIL` (`site.ts`). Sichtbar ist „info [at] kult61 [dot] de“ bzw.
+  die Nummer als HTML-Entitäten; `src/scripts/contact.ts` setzt beim ersten Bedienen der Seite
+  (Maus, Touch, Tastatur, Scrollen) die echten `mailto:`/`tel:`-Links zusammen (Teile rückwärts
+  in `data-`Attributen). Ohne JS bleibt alles lesbar, nur nicht anklickbar (Anker `#kontakt` im Footer).
+  Bewusst entfernt: `email`/`telephone`/`servicePhone` in Schema.org (Google bekommt das Telefon über das
+  Unternehmensprofil), Klartext in `llms.txt` (dort „[at]“-Schreibweise, Telefon nur als Verweis auf
+  `/raum-mieten`), Telefonnummer in den FAQ-JSON-LD. **Nach jeder Änderung**
+  `npm run build && npm run check:contact` (Skript `scripts/check-contact.mjs` sucht in `dist/` nach
+  Klartext; Kalender-UIDs `…@kult61.de` in `events.ics` sind erlaubt und müssen stabil bleiben).
+  Event-Texte nie mit der Adresse/Nummer im Klartext schreiben. Impressum: Kontakt ist dort nur nach
+  Interaktion/ohne JS in entschärfter Form lesbar — bei der rechtlichen Prüfung mit ansprechen.
 - Kapazität steht zentral in `SITE.capacity` (160 stehend, 80–100 mit Tischen und
   Stühlen, Angaben des Kunden vom 07.10.2026) und wird von Seite, FAQ, Schema.org
   (`maximumAttendeeCapacity`) und `llms.txt` gemeinsam genutzt — nur dort ändern.

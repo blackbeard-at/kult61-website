@@ -10,7 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "import:wp": "node scripts/import-wordpress.mjs"
+    "import:wp": "node scripts/import-wordpress.mjs",
+    "check:contact": "node scripts/check-contact.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.0",

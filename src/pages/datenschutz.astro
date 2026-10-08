@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumb } from '../lib/seo';
 import { SITE } from '../config/site';
+import Mail from '../components/Mail.astro';
+import Phone from '../components/Phone.astro';
 
 const op = SITE.operator;
 ---
@@ -25,8 +27,8 @@ const op = SITE.operator;
       {op.street}<br />
       {op.zip} {op.city}<br />
       {op.country}<br />
-      Telefon: <a href={SITE.phoneHref}>{SITE.phone}</a><br />
-      E-Mail: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      Telefon: <Phone /><br />
+      E-Mail: <Mail />
     </address>
     <p>Weitere Angaben zum Anbieter finden Sie im <a href="/impressum">Impressum</a>.</p>
 
@@ -141,7 +143,7 @@ const op = SITE.operator;
       <li>Recht auf Widerspruch gegen Verarbeitungen auf Grundlage berechtigter Interessen (Art. 21 DSGVO),</li>
       <li>Recht auf Widerruf einer erteilten Einwilligung mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).</li>
     </ul>
-    <p>Zur Ausübung Ihrer Rechte genügt eine formlose Nachricht an <a href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    <p>Zur Ausübung Ihrer Rechte genügt eine formlose Nachricht an <Mail />.</p>
 
     <h2 id="beschwerde">13. Beschwerderecht bei der Aufsichtsbehörde</h2>
     <p>

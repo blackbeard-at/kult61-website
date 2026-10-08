@@ -1,0 +1,11 @@
+---
+// Telefon-Link ohne Klartext-Nummer im HTML (siehe src/lib/contact.ts)
+import { phoneLink } from '../lib/contact';
+
+interface Props {
+  class?: string;
+}
+const { class: className } = Astro.props;
+---
+
+<Fragment set:html={phoneLink({ class: className })} />

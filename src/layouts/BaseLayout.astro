@@ -56,8 +56,6 @@ const venue = {
   url: `${SITE.url}/`,
   logo: symbolUrl,
   image: ogUrl,
-  email: SITE.email,
-  telephone: SITE.phoneIntl,
   maximumAttendeeCapacity: SITE.capacity.standing,
   address: {
     '@type': 'PostalAddress',
@@ -147,6 +145,7 @@ const graph = { '@context': 'https://schema.org', '@graph': [venue, website] };
     <Footer />
 
     <script>
+      import '../scripts/contact';
       import '../scripts/motion';
       import '../scripts/drag-scroll';
     </script>

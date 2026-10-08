@@ -2,6 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { breadcrumb } from '../lib/seo';
 import { SITE } from '../config/site';
+import Mail from '../components/Mail.astro';
+import Phone from '../components/Phone.astro';
 
 const op = SITE.operator;
 ---
@@ -33,8 +35,8 @@ const op = SITE.operator;
 
     <h2>Kontaktmöglichkeiten</h2>
     <p>
-      Telefon: <a href={SITE.phoneHref}>{SITE.phone}</a><br />
-      E-Mail-Adresse: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+      Telefon: <Phone /><br />
+      E-Mail-Adresse: <Mail />
     </p>
 
     <h2>Angaben zum Unternehmen</h2>

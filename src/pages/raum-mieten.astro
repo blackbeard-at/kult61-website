@@ -4,7 +4,10 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Faq from '../components/Faq.astro';
 import { gallery, photos, raumHeaderPhoto } from '../lib/photos';
 import { breadcrumb, faqJsonLd, type FaqItem } from '../lib/seo';
-import { SITE, MAIL_RAUM, ROOMS } from '../config/site';
+import { SITE, ROOMS } from '../config/site';
+import { mailLink, phoneLink } from '../lib/contact';
+import Mail from '../components/Mail.astro';
+import Phone from '../components/Phone.astro';
 
 const { standing, seated } = SITE.capacity;
 
@@ -52,7 +55,7 @@ const faq: FaqItem[] = [
   },
   {
     q: 'Wie frage ich einen Termin an?',
-    a: `<p>Schick deine Anfrage per E-Mail an <a href="${MAIL_RAUM}">${SITE.email}</a> oder ruf uns an: <a href="${SITE.phoneHref}">${SITE.phone}</a>. Hilfreich sind Wunschtermin, Anlass, Personenzahl, Getränkewünsche (oder eigene Getränke) und die Info, ob du Catering möchtest.</p>`,
+    a: `<p>Schick deine Anfrage per E-Mail an ${mailLink('raum')} oder ruf uns an: ${phoneLink()}. Hilfreich sind Wunschtermin, Anlass, Personenzahl, Getränkewünsche (oder eigene Getränke) und die Info, ob du Catering möchtest.</p>`,
   },
 ];
 
@@ -68,7 +71,7 @@ const rentalService = {
     { '@type': 'AdministrativeArea', name: 'Main-Kinzig-Kreis' },
     { '@type': 'Place', name: 'Rhein-Main-Gebiet' },
   ],
-  availableChannel: { '@type': 'ServiceChannel', serviceUrl: `${SITE.url}${ROOMS.path}`, servicePhone: SITE.phoneIntl },
+  availableChannel: { '@type': 'ServiceChannel', serviceUrl: `${SITE.url}${ROOMS.path}` },
 };
 
 const uses = [
@@ -111,8 +114,8 @@ const uses = [
         <h2 class="section-title md">Deine Location für Feiern, Konzerte &amp; Workshops</h2>
         <p style="margin-top: 32px">Eine ehemalige KFZ-Halle mit Industrie-Flair, Bühne, Licht- und Soundanlage, eigener Theke und Platz für bis zu {standing} Gäste: Das KULT61 ist der Veranstaltungsraum in Hanau-Großauheim, in dem sonst Konzerte und Partys laufen. Du kannst ihn für deine Feier, dein Konzert oder deinen Kurs mieten – stundenweise, tageweise oder für feste Wochentermine.</p>
         <p>Du musst nicht alles selbst stemmen: Unser Team kümmert sich normalerweise um die Theke und besorgt die Getränke, und für das Essen arbeiten wir mit Cateringfirmen zusammen. Du bringst die Idee mit.</p>
-        <p>Lieber telefonisch? Ruf uns an: <a href={SITE.phoneHref}>{SITE.phone}</a></p>
-        <a class="btn" href={MAIL_RAUM}>Raum anfragen</a>
+        <p>Lieber telefonisch? Ruf uns an: <Phone /></p>
+        <Mail kind="raum" label="Raum anfragen" class="btn" />
       </div>
       <div class="facts">
         <h2 style="font-size: 20px; margin-bottom: 22px">Auf einen Blick</h2>
@@ -121,7 +124,7 @@ const uses = [
           <div><dt>Ausstattung</dt><dd>Bühne, Licht- &amp; Soundanlage, Theke mit Kühlschränken, Sitzgelegenheiten</dd></div>
           <div><dt>Vermietung</dt><dd>Stundenweise, tageweise oder für feste Wochentermine möglich</dd></div>
           <div><dt>Parkplätze</dt><dd>Rund um das Gebäude ausreichend vorhanden</dd></div>
-          <div><dt>Kontakt</dt><dd><a href={SITE.phoneHref}>{SITE.phone}</a><small><a href={MAIL_RAUM}>{SITE.email}</a></small></dd></div>
+          <div><dt>Kontakt</dt><dd><Phone /><small><Mail kind="raum" /></small></dd></div>
           <div>
             <dt>Adresse</dt>
             <dd>
@@ -212,7 +215,7 @@ const uses = [
       <div class="cta-band">
         <div>
           <h2>Jetzt Termin anfragen</h2>
-          <p>Schreib uns eine E-Mail an {SITE.email} oder ruf an: <a href={SITE.phoneHref}>{SITE.phone}</a>. Diese Angaben helfen uns bei deiner Anfrage:</p>
+          <p>Schreib uns eine E-Mail an <Mail kind="raum" /> oder ruf an: <Phone />. Diese Angaben helfen uns bei deiner Anfrage:</p>
           <ul class="checklist">
             <li>Wunschtermin oder Zeitraum</li>
             <li>Anlass der Veranstaltung</li>
@@ -221,7 +224,7 @@ const uses = [
             <li>Catering gewünscht oder nicht</li>
           </ul>
         </div>
-        <a class="btn" href={MAIL_RAUM}>Raum anfragen</a>
+        <Mail kind="raum" label="Raum anfragen" class="btn" />
       </div>
     </div>
   </section>

@@ -1,0 +1,14 @@
+---
+// E-Mail-Link ohne Klartext-Adresse im HTML (siehe src/lib/contact.ts)
+import { mailLink } from '../lib/contact';
+import type { MailKind } from '../config/site';
+
+interface Props {
+  kind?: MailKind;
+  label?: string;
+  class?: string;
+}
+const { kind, label, class: className } = Astro.props;
+---
+
+<Fragment set:html={mailLink(kind, { label, class: className })} />

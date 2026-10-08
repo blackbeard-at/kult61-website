@@ -10,10 +10,10 @@ export const SITE = {
   description:
     'KULT61 ist ein unabhängiger Kulturraum in Hanau-Großauheim: Konzerte, Partys & DJ-Sets, Kunst, Workshops und Raum für Kollektive – in einer ehemaligen KFZ-Halle. Aktuelle Events, Tickets und Räume mieten.',
   email: 'info@kult61.de',
-  // Telefon (Angabe von Arif, 08.10.2026): Anzeige, Link und Schema.org-Format
+  // Telefon (Angabe von Arif, 08.10.2026). E-Mail und Telefon NIE direkt ins HTML schreiben,
+  // sondern über src/lib/contact.ts bzw. die Komponenten Mail.astro / Phone.astro ausgeben.
   phone: '0176 64601977',
   phoneIntl: '+49 176 64601977',
-  phoneHref: 'tel:+4917664601977',
   // Sammelseite aller Vorverkaufstickets (Eventbrite)
   ticketsUrl: 'https://www.eventbrite.de/o/121269897363',
   address: {
@@ -61,7 +61,6 @@ export const NAV_BUTTONS = [
   { label: ROOMS.label, href: ROOMS.path },
 ] as const;
 
-export const MAIL_ANFRAGE = `mailto:${SITE.email}?subject=Anfrage`;
 
 // Raumanfrage mit vorbereitetem Mailtext: Interessenten liefern gleich alle Angaben mit,
 // die für ein Angebot nötig sind. (Nur Vorlagentext — keine personenbezogenen Daten in der URL.)
@@ -78,4 +77,11 @@ const RAUM_BODY = [
   '',
   'Name und Telefonnummer:',
 ].join('\n');
-export const MAIL_RAUM = `mailto:${SITE.email}?subject=${encodeURIComponent('Raumanfrage')}&body=${encodeURIComponent(RAUM_BODY)}`;
+
+// Mail-Vorlagen als reine Daten. Die Adresse wird bewusst NICHT hier zusammengebaut: Sie kommt erst im
+// Browser dazu (src/scripts/contact.ts), damit sie nie als Klartext im HTML steht.
+export const MAIL = {
+  anfrage: { subject: 'Anfrage' },
+  raum: { subject: 'Raumanfrage', body: RAUM_BODY },
+} as const;
+export type MailKind = keyof typeof MAIL;

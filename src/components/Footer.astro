@@ -3,7 +3,9 @@ import { Image } from 'astro:assets';
 import logoSmall from '../assets/logos/kult61-neg-all-small.svg';
 import symbol from '../assets/logos/kult61-neg-symbol.svg';
 import bannerPhoto from '../assets/images/abend-7rv7382.jpg';
-import { SITE, MAIL_ANFRAGE, ROOMS } from '../config/site';
+import { SITE, ROOMS } from '../config/site';
+import Mail from './Mail.astro';
+import Phone from './Phone.astro';
 
 const year = new Date().getFullYear();
 ---
@@ -44,10 +46,10 @@ const year = new Date().getFullYear();
         <address>
           {SITE.address.street}<br />
           {SITE.address.zip} {SITE.address.city}<br />
-          <a href={SITE.phoneHref}>{SITE.phone}</a><br />
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <Phone /><br />
+          <Mail />
         </address>
-        <a class="btn" href={MAIL_ANFRAGE}>Schreib uns</a>
+        <Mail kind="anfrage" label="Schreib uns" class="btn" />
       </div>
       <img class="footer-symbol" src={symbol.src} width="270" height="148" alt="" loading="lazy" />
     </div>

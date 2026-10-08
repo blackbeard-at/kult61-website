@@ -1,3 +1,4 @@
+import { mailText } from '../lib/contact';
 import type { APIRoute } from 'astro';
 import { SITE } from '../config/site';
 import { bodyPlain, eventUrl, absoluteUrl, formatDateLong, getUpcomingEvents, getPastEvents } from '../lib/events';
@@ -70,7 +71,7 @@ Veranstaltungsraum und Partylocation in einer ehemaligen KFZ-Halle in Hanau-Gro�
 - Vermietung: stundenweise, tageweise oder für feste Wochentermine
 - Parkplätze: rund um das Gebäude ausreichend vorhanden
 - Ideal für: Feiern, Tanzabende, Konzerte, kreative Workshops, Kurse u. v. m.
-- Anfrage per E-Mail: ${SITE.email} oder telefonisch: ${SITE.phone}
+- Anfrage per E-Mail: ${mailText} oder telefonisch (Nummer: siehe ${SITE.url}/raum-mieten)
 
 Mehr: ${SITE.url}/raum-mieten
 
@@ -81,8 +82,7 @@ Wer selbst etwas auf die Beine stellen will, ist willkommen. KULT61 bietet Raum 
 ## Adresse & Kontakt
 
 - KULT61, ${SITE.address.street}, ${SITE.address.zip} ${SITE.address.city}-${SITE.address.district} (${SITE.locationNote})
-- Telefon: ${SITE.phone}
-- E-Mail: ${SITE.email}
+- Kontakt: E-Mail ${mailText}; Telefonnummer siehe ${SITE.url}/raum-mieten
 - Betreiber: ${SITE.operator.name}, ${SITE.operator.street}, ${SITE.operator.zip} ${SITE.operator.city}
 
 ## Seiten

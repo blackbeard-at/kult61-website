@@ -22,7 +22,14 @@ export interface FaqItem {
   a: string;
 }
 
-const stripHtml = (s: string) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+// Kontaktdaten gehören nicht in die strukturierten Daten (Spam-Schutz): Telefon-Links werden ersetzt,
+// die E-Mail steht ohnehin nur als „info [at] kult61 [dot] de“ im Text.
+const stripHtml = (s: string) =>
+  s
+    .replace(/<a [^>]*data-obf="phone"[^>]*>.*?<\/a>/g, 'Telefonnummer siehe Website')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 
 export function faqJsonLd(items: FaqItem[]) {
   return {

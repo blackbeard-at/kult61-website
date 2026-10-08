@@ -1,6 +1,7 @@
 ---
 import logo from '../assets/logos/kult61-neg-all.svg';
-import { NAV_LINKS, NAV_BUTTONS, SITE, MAIL_ANFRAGE } from '../config/site';
+import { NAV_LINKS, NAV_BUTTONS, SITE } from '../config/site';
+import Mail from './Mail.astro';
 
 const path = Astro.url.pathname;
 const isCurrent = (href: string) => href !== '/' && (path === href || path.startsWith(`${href}/`));
@@ -26,11 +27,11 @@ const isCurrent = (href: string) => href !== '/' && (path === href || path.start
             </a>
           ))
         }
-        <a class="btn" href={MAIL_ANFRAGE}>Anfrage</a>
+        <Mail kind="anfrage" label="Anfrage" class="btn" />
       </div>
       <div class="nav-contact">
         <p>Let's talk</p>
-        <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+        <Mail />
       </div>
     </nav>
     <button class="nav-toggle" type="button" aria-label="Menü öffnen" aria-expanded="false"><span></span></button>
