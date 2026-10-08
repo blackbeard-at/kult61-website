@@ -83,6 +83,9 @@ Wer selbst etwas auf die Beine stellen will, ist willkommen. KULT61 bietet Raum 
 
 - KULT61, ${SITE.address.street}, ${SITE.address.zip} ${SITE.address.city}-${SITE.address.district} (${SITE.locationNote})
 - Kontakt: E-Mail ${mailText}; Telefonnummer siehe ${SITE.url}/raum-mieten
+- Instagram: ${SITE.instagramUrl}
+- Facebook: ${SITE.facebookUrl}
+- Google-Unternehmensprofil (Route, Bewertungen): ${SITE.googleProfileUrl}
 - Betreiber: ${SITE.operator.name}, ${SITE.operator.street}, ${SITE.operator.zip} ${SITE.operator.city}
 
 ## Seiten

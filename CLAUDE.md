@@ -233,10 +233,13 @@ wegen `p=reject` abgelehnt. Deshalb vorher:
 - **Nächtlicher Rebuild**, damit vergangene Events ohne Zutun ins Archiv wandern
   (GitHub-Action-Cron oder Cloudflare-Hook).
 - **Impressum**: Komplementär, Geschäftsführung nachtragen; Registergericht/-nummer fehlen bewusst (Abschnitt entfernt), bei einer GmbH & Co. KG Pflicht.
-- **Instagram**: In der Kundenmail vom 10.04.2025 steht `@kult_61`; auf der Live-Seite
-  ist nichts verlinkt. Wenn verlinkt werden soll: `SITE.instagramUrl` setzen
-  (erscheint dann als `sameAs`), Footer-Link ergänzen **und** Social-Media-Absatz in
-  der Datenschutzerklärung aufnehmen.
+- **Social/Profile (08.10.2026)**: Instagram `kult61_hanau` (nicht `@kult_61` aus der alten Mail), Facebook-Seite
+  `Kult61` und Google-Unternehmensprofil (Kurzlink) stehen in `SITE.instagramUrl`/`facebookUrl`/
+  `googleProfileUrl`. Verlinkt im Footer (Instagram, Facebook) und bei `/raum-mieten` → Lage (Google); in
+  Schema.org als `sameAs`/`hasMap` und in `llms.txt`. Nur Links, keine Plugins/Einbettungen — die
+  Datenschutzerklärung (Abschnitt 9) nennt Instagram, Facebook (inkl. Hinweis auf gemeinsame Verantwortlichkeit
+  bei Seiten-Statistiken) und Google; **vom Anwalt prüfen lassen**. Wird eingebettet (Feed, Karte, Plugin),
+  Datenschutz + Consent-Banner anpassen.
 - **Arif liefert nach (Erinnerung Mo 12.10.2026 geplant)**: Mindestdauer der
   Anmietung, Öffnungszeiten, Catering-Partner. Dann FAQ (`raum-mieten.astro`),
   „Auf einen Blick“, Schema.org und `llms.txt` ergänzen.
@@ -245,6 +248,6 @@ wegen `p=reject` abgelehnt. Deshalb vorher:
   (Seite, FAQ, Schema.org, `llms.txt`) nennen.
 - Weitere fehlende Fakten für mehr SEO-Substanz: Telefonnummer, Koordinaten,
   Barrierefreiheit, Presse-/Referenzfotos.
-- **Google Business Profile** (lokale Suche, Karte) für „Hanauer Landstraße 61“
-  anlegen/prüfen; Search Console für die neue Domain-Property verifizieren.
+- **Google-Unternehmensprofil** existiert (Link von Arif); Inhalte prüfen (Adresse, Telefon, Öffnungszeiten,
+  Website-URL auf `https://kult61.de` setzen). Search Console für die neue Domain-Property verifizieren.
 - Rechtliche Prüfung der Datenschutzerklärung (siehe oben).

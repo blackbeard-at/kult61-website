@@ -40,7 +40,10 @@ export const SITE = {
     vatId: 'DE452006535',
   },
   // Wird als sameAs / Footer-Link ausgegeben, sobald gesetzt (siehe CLAUDE.md, offene Punkte)
-  instagramUrl: '' as string,
+  instagramUrl: 'https://www.instagram.com/kult61_hanau/',
+  facebookUrl: 'https://www.facebook.com/p/Kult61-61579028843344/',
+  // Google-Unternehmensprofil (Kurzlink von Arif, 08.10.2026) — Route, Bewertungen, Maps
+  googleProfileUrl: 'https://share.google/aagVZAUIuR1xHJzkB',
 } as const;
 
 // Seite zum Mieten der Räume (Label + URL zentral, damit eine Umbenennung nur hier passiert;

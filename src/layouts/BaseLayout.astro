@@ -65,7 +65,8 @@ const venue = {
     addressRegion: SITE.address.region,
     addressCountry: SITE.address.country,
   },
-  sameAs: [SITE.ticketsUrl, SITE.instagramUrl].filter(Boolean),
+  sameAs: [SITE.ticketsUrl, SITE.instagramUrl, SITE.facebookUrl, SITE.googleProfileUrl].filter(Boolean),
+  hasMap: SITE.googleProfileUrl,
   amenityFeature: ['Bühne', 'Licht- und Soundanlage', 'Theke mit Kühlschränken', 'Sitzgelegenheiten', 'Parkplätze'].map(
     (name) => ({ '@type': 'LocationFeatureSpecification', name, value: true }),
   ),
