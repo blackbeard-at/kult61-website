@@ -15,8 +15,8 @@ const faq: FaqItem[] = [
     a: `<p>Stehend, ohne Tische und Stühle, haben bis zu <strong>${standing} Personen</strong> Platz. Mit Tischen und Stühlen – zum Beispiel bei Geburtstagen oder ähnlichen Veranstaltungen – sind es <strong>${seated} Personen</strong>.</p>`,
   },
   {
-    q: 'Wofür kann ich die Räumlichkeiten mieten?',
-    a: '<p>Die Räumlichkeiten eignen sich für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzabende und Tanzkurse, Konzerte, kreative Workshops und Kurse sowie für regelmäßige Events.</p>',
+    q: 'Wofür kann ich den Veranstaltungsraum mieten?',
+    a: '<p>Das KULT61 eignet sich als Partyraum für Geburtstage und kleinere Feiern, für eigene Veranstaltungen, Tanzabende und Tanzkurse, Konzerte, kreative Workshops und Kurse sowie für regelmäßige Events.</p>',
   },
   {
     q: 'Wie lange kann ich die Räume mieten?',
@@ -47,8 +47,12 @@ const faq: FaqItem[] = [
     a: '<p>Ja, rund um das Gebäude sind ausreichend Parkplätze vorhanden. Das KULT61 liegt in einer ehemaligen KFZ-Halle in der Nähe des Bahnhofs Großauheim.</p>',
   },
   {
-    q: 'Wo liegt das KULT61 und wie frage ich einen Termin an?',
-    a: `<p>Das KULT61 befindet sich in der ${SITE.address.street}, ${SITE.address.zip} ${SITE.address.city}-${SITE.address.district}. Schick deine Anfrage per E-Mail an <a href="${MAIL_RAUM}">${SITE.email}</a> – mit Wunschtermin, Anlass, Personenzahl, Getränkewünschen (oder eigenen Getränken) und ob du Catering möchtest.</p>`,
+    q: 'Wo liegt das KULT61?',
+    a: `<p>Das KULT61 befindet sich in der ${SITE.address.street}, ${SITE.address.zip} ${SITE.address.city}-${SITE.address.district} im Main-Kinzig-Kreis – in einer ehemaligen KFZ-Halle in der Nähe des Bahnhofs Großauheim.</p>`,
+  },
+  {
+    q: 'Wie frage ich einen Termin an?',
+    a: `<p>Schick deine Anfrage per E-Mail an <a href="${MAIL_RAUM}">${SITE.email}</a> oder ruf uns an: <a href="${SITE.phoneHref}">${SITE.phone}</a>. Hilfreich sind Wunschtermin, Anlass, Personenzahl, Getränkewünsche (oder eigene Getränke) und die Info, ob du Catering möchtest.</p>`,
   },
 ];
 
@@ -57,14 +61,18 @@ const rentalService = {
   '@type': 'Service',
   name: 'Eventlocation mieten in Hanau-Großauheim',
   serviceType: 'Vermietung von Veranstaltungsräumen',
-  description: `Stilvolle Location für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Konzerte, Workshops und regelmäßige Events. Platz für bis zu ${standing} Personen stehend bzw. ${seated} Personen mit Tischen und Stühlen. Mit Bühne, Licht- und Soundanlage, Theke mit Personal, Getränkeeinkauf durch das KULT61-Team (eigene Getränke nach Absprache) und Catering-Partnern. Stundenweise, tageweise oder für feste Wochentermine.`,
+  description: `Veranstaltungsraum und Partylocation in einer ehemaligen KFZ-Halle für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Konzerte, Workshops und regelmäßige Events. Platz für bis zu ${standing} Personen stehend bzw. ${seated} Personen mit Tischen und Stühlen. Mit Bühne, Licht- und Soundanlage, Theke mit Personal, Getränkeeinkauf durch das KULT61-Team (eigene Getränke nach Absprache) und Catering-Partnern. Stundenweise, tageweise oder für feste Wochentermine.`,
   provider: { '@id': `${SITE.url}/#venue` },
-  areaServed: { '@type': 'Place', name: 'Hanau, Großauheim und Umgebung' },
-  availableChannel: { '@type': 'ServiceChannel', serviceUrl: `${SITE.url}${ROOMS.path}` },
+  areaServed: [
+    { '@type': 'City', name: 'Hanau' },
+    { '@type': 'AdministrativeArea', name: 'Main-Kinzig-Kreis' },
+    { '@type': 'Place', name: 'Rhein-Main-Gebiet' },
+  ],
+  availableChannel: { '@type': 'ServiceChannel', serviceUrl: `${SITE.url}${ROOMS.path}`, servicePhone: SITE.phoneIntl },
 };
 
 const uses = [
-  ['Geburtstage & Feiern', `Geburtstage, kleinere Feiern und ähnliche Veranstaltungen – mit Tischen und Stühlen für ${seated} Personen.`],
+  ['Geburtstage & Partys', `Dein Partyraum für Geburtstage, kleinere Feiern und ähnliche Veranstaltungen – mit Tischen und Stühlen für ${seated} Personen.`],
   ['Tanzabende & Tanzkurse', 'Tanzfläche, Licht- und Soundanlage sind vorhanden – für Tanzabende, Tanzkurse und Partys.'],
   ['Konzerte & Live-Events', 'Bühne, Licht und Sound sind da. Im KULT61 selbst finden regelmäßig Konzerte statt.'],
   ['Workshops & Kurse', 'Kreative Workshops und Kurse – stundenweise oder tageweise.'],
@@ -74,8 +82,8 @@ const uses = [
 ---
 
 <BaseLayout
-  title={`Location mieten in Hanau-Großauheim: bis ${standing} Gäste | KULT61`}
-  description={`Eventlocation in Hanau-Großauheim mieten: bis zu ${standing} Gäste stehend, ${seated} mit Bestuhlung. Bühne, Licht & Sound, Theke mit Personal, Getränke & Catering.`}
+  title={`Location & Partyraum mieten in Hanau-Großauheim | KULT61`}
+  description={`Veranstaltungsraum in Hanau-Großauheim mieten: bis ${standing} Gäste stehend, ${seated} mit Bestuhlung. Bühne, Licht & Sound, Theke mit Personal, Getränke, Catering.`}
   path={ROOMS.path}
   image={photos.publikumLila.src}
   jsonLd={[breadcrumb([[ROOMS.label, ROOMS.path]]), rentalService, faqJsonLd(faq)]}
@@ -101,19 +109,19 @@ const uses = [
     <div class="container rooms">
       <div>
         <h2 class="section-title md">Deine Location für Feiern, Konzerte &amp; Workshops</h2>
-        <p style="margin-top: 32px">Du suchst eine stilvolle Location für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Workshops oder regelmäßige Events?<br />Dann ist das KULT 61 genau das Richtige für dich!</p>
-        <p>Das KULT61 ist eine ehemalige KFZ-Halle in Hanau-Großauheim mit Platz für bis zu {standing} Gäste, eigener Theke samt Personal und Partnern für Getränke und Catering.</p>
-        <a class="btn" href={MAIL_RAUM}>Jetzt Termin sichern</a>
+        <p style="margin-top: 32px">Eine ehemalige KFZ-Halle mit Industrie-Flair, Bühne, Licht- und Soundanlage, eigener Theke und Platz für bis zu {standing} Gäste: Das KULT61 ist der Veranstaltungsraum in Hanau-Großauheim, in dem sonst Konzerte und Partys laufen. Du kannst ihn für deine Feier, dein Konzert oder deinen Kurs mieten – stundenweise, tageweise oder für feste Wochentermine.</p>
+        <p>Du musst nicht alles selbst stemmen: Unser Team kümmert sich normalerweise um die Theke und besorgt die Getränke, und für das Essen arbeiten wir mit Cateringfirmen zusammen. Du bringst die Idee mit.</p>
+        <p>Lieber telefonisch? Ruf uns an: <a href={SITE.phoneHref}>{SITE.phone}</a></p>
+        <a class="btn" href={MAIL_RAUM}>Raum anfragen</a>
       </div>
       <div class="facts">
         <h2 style="font-size: 20px; margin-bottom: 22px">Auf einen Blick</h2>
         <dl class="facts-list">
           <div><dt>Kapazität</dt><dd>Bis zu {standing} Personen stehend<small>{seated} Personen mit Tischen und Stühlen</small></dd></div>
           <div><dt>Ausstattung</dt><dd>Bühne, Licht- &amp; Soundanlage, Theke mit Kühlschränken, Sitzgelegenheiten</dd></div>
-          <div><dt>Service</dt><dd>Theke mit Personal, Getränkeeinkauf durch uns (eigene Getränke nach Absprache), Catering-Partner</dd></div>
           <div><dt>Vermietung</dt><dd>Stundenweise, tageweise oder für feste Wochentermine möglich</dd></div>
           <div><dt>Parkplätze</dt><dd>Rund um das Gebäude ausreichend vorhanden</dd></div>
-          <div><dt>Ideal für</dt><dd>Feiern, Tanzabende, Konzerte, kreative Workshops, Kurse u.&nbsp;v.&nbsp;m.</dd></div>
+          <div><dt>Kontakt</dt><dd><a href={SITE.phoneHref}>{SITE.phone}</a><small><a href={MAIL_RAUM}>{SITE.email}</a></small></dd></div>
           <div>
             <dt>Adresse</dt>
             <dd>
@@ -191,7 +199,7 @@ const uses = [
       </div>
       <div class="facts">
         <p>
-          Das KULT61 liegt in der <strong>{SITE.address.street}, {SITE.address.zip} {SITE.address.city}-{SITE.address.district}</strong> – in einer ehemaligen KFZ-Halle in der Nähe des Bahnhofs Großauheim.
+          Das KULT61 liegt in der <strong>{SITE.address.street}, {SITE.address.zip} {SITE.address.city}-{SITE.address.district}</strong> – in einer ehemaligen KFZ-Halle in der Nähe des Bahnhofs Großauheim, im Main-Kinzig-Kreis und im Rhein-Main-Gebiet.
         </p>
         <p>Rund um das Gebäude sind ausreichend Parkplätze vorhanden.</p>
         <p>Im KULT61 finden regelmäßig Konzerte, Partys und mehr statt – einen Eindruck bekommst du im <a href="/events">Eventkalender</a>.</p>
@@ -204,7 +212,7 @@ const uses = [
       <div class="cta-band">
         <div>
           <h2>Jetzt Termin anfragen</h2>
-          <p>Schreib uns eine E-Mail an {SITE.email}. Diese Angaben helfen uns bei deiner Anfrage:</p>
+          <p>Schreib uns eine E-Mail an {SITE.email} oder ruf an: <a href={SITE.phoneHref}>{SITE.phone}</a>. Diese Angaben helfen uns bei deiner Anfrage:</p>
           <ul class="checklist">
             <li>Wunschtermin oder Zeitraum</li>
             <li>Anlass der Veranstaltung</li>
@@ -213,7 +221,7 @@ const uses = [
             <li>Catering gewünscht oder nicht</li>
           </ul>
         </div>
-        <a class="btn" href={MAIL_RAUM}>Anfrage per E-Mail</a>
+        <a class="btn" href={MAIL_RAUM}>Raum anfragen</a>
       </div>
     </div>
   </section>

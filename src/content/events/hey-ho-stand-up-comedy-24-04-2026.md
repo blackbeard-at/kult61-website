@@ -9,4 +9,4 @@ poster: ../../assets/events/hey-ho-stand-up-comedy-24-04-2026.webp
 posterAlt: "Plakat: HEY HO STAND-UP COMEDY"
 ---
 
-FÄLLT AUS!: HEY HO STAND-UP COMEDY! im Kult61
+FÄLLT AUS!: HEY HO STAND-UP COMEDY! im KULT61

@@ -32,7 +32,10 @@ const op = SITE.operator;
     </p>
 
     <h2>Kontaktmöglichkeiten</h2>
-    <p>E-Mail-Adresse: <a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+    <p>
+      Telefon: <a href={SITE.phoneHref}>{SITE.phone}</a><br />
+      E-Mail-Adresse: <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+    </p>
 
     <h2>Angaben zum Unternehmen</h2>
     <p>Umsatzsteuer-Identifikationsnummer (USt-ID): {op.vatId}</p>

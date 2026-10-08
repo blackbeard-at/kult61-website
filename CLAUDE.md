@@ -86,11 +86,16 @@ alles — nach dem Go-Live **nie** benutzen).
   Abdunklung hinter dem Text). Neuer Foto-Header: Klassen `has-bg photo-hero` + `.hero-bg`-Bild,
   Ausschnitt per `style="--pos-m: …; --pos-d: …"`:
   Kapazität, Nutzungsmöglichkeiten, Service (Theke/Personal, Getränke, Catering),
-  Fotogalerie, Lage, Anfrage-Block, FAQ (10 Fragen) + Schema.org `Service`/`FAQPage`.
+  Fotogalerie, Lage, Anfrage-Block, FAQ (11 Fragen) + Schema.org `Service`/`FAQPage`.
+  Suchbegriffe bewusst eingebaut: Veranstaltungsraum, Partyraum, Eventlocation, Main-Kinzig-Kreis,
+  Rhein-Main-Gebiet. Die Einleitung der Seite ist eigener Text (nicht identisch mit der Startseite).
   Eigene Getränke sind nach Absprache möglich (Kunde, 07.10.2026).
   Die Anfrage-Buttons öffnen eine Mail mit vorbereitetem Text (`MAIL_RAUM` in
   `src/config/site.ts`: Termin, Anlass, Personenzahl, Getränke, Catering — die fünf
   Punkte im Wortlaut von Arif, 07.10.2026; gilt für alle „Termin sichern“/„Anfrage per E-Mail“-Buttons).
+- **Telefon** `0176 64601977` steht zentral in `SITE.phone`/`phoneIntl`/`phoneHref` (Angabe von Arif,
+  08.10.2026) und wird in Footer, Impressum, Datenschutz, Startseite, `/raum-mieten`, Schema.org
+  (`telephone`, `servicePhone`) und `llms.txt` genutzt — nur dort ändern.
 - Kapazität steht zentral in `SITE.capacity` (160 stehend, 80–100 mit Tischen und
   Stühlen, Angaben des Kunden vom 07.10.2026) und wird von Seite, FAQ, Schema.org
   (`maximumAttendeeCapacity`) und `llms.txt` gemeinsam genutzt — nur dort ändern.
@@ -117,6 +122,10 @@ alles — nach dem Go-Live **nie** benutzen).
   der alte WP-Impressumstext hatte sie nicht.
 
 ## Eigenheiten, die beim Weiterarbeiten wichtig sind
+- **Schreibweise immer „KULT61“** (nicht Kult61, KULT 61, Kult 61). Ausnahmen: der optisch
+  getrennte Hero (KULT | 61, wie live), Titel alter Events und `alternateName` im Schema.org.
+- **Button-Texte**: Vermietung = „Raum anfragen“, allgemeine Mail (Mitmachen, Footer) = „Schreib uns“,
+  Kopfleiste „Anfrage“ (wie live). Nicht wieder „Jetzt Termin sichern“ (klingt nach Buchung).
 - **Logos als `<img>` einbinden, nicht inline.** Die SVGs aus dem Logo-Paket
   (`05_images/KULT61_Logo-Package_032025/SVG`) nutzen generische `cls-1`/`cls-2`-
   Klassen. Inline würden sich ihre Farben gegenseitig überschreiben. Neue SVGs vor

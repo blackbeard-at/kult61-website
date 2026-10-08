@@ -39,7 +39,7 @@ KULT61 ist ein unabhängiger Kulturraum für Diversität, Kreativität und echte
 - Unterstützung junger und alternativer Kunstschaffender
 - Verbindung von lokaler Szene und internationalem Einfluss
 
-„Kult61 ist nicht Event. Kult61 ist Haltung. Bewegung. Ausdruck.“
+„KULT61 ist nicht Event. KULT61 ist Haltung. Bewegung. Ausdruck.“
 
 ## Programm
 
@@ -62,7 +62,7 @@ Bei manchen Veranstaltungen gibt es eine Abendkasse oder freien Eintritt – Det
 
 ## Räumlichkeiten mieten
 
-Stilvolle Location für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Workshops oder regelmäßige Events.
+Veranstaltungsraum und Partylocation in einer ehemaligen KFZ-Halle in Hanau-Großauheim (Main-Kinzig-Kreis) für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Tanzkurse, Workshops oder regelmäßige Events.
 
 - Kapazität: bis zu ${SITE.capacity.standing} Personen stehend (ohne Tische und Stühle), ${SITE.capacity.seated} Personen mit Tischen und Stühlen (z. B. Geburtstage und ähnliche Veranstaltungen)
 - Ausstattung: Bühne, Licht- & Soundanlage, Theke mit Kühlschränken, Sitzgelegenheiten
@@ -70,7 +70,7 @@ Stilvolle Location für eigene Veranstaltungen, Geburtstage, kleinere Feiern, Ta
 - Vermietung: stundenweise, tageweise oder für feste Wochentermine
 - Parkplätze: rund um das Gebäude ausreichend vorhanden
 - Ideal für: Feiern, Tanzabende, Konzerte, kreative Workshops, Kurse u. v. m.
-- Anfrage per E-Mail: ${SITE.email}
+- Anfrage per E-Mail: ${SITE.email} oder telefonisch: ${SITE.phone}
 
 Mehr: ${SITE.url}/raum-mieten
 
@@ -81,6 +81,7 @@ Wer selbst etwas auf die Beine stellen will, ist willkommen. KULT61 bietet Raum 
 ## Adresse & Kontakt
 
 - KULT61, ${SITE.address.street}, ${SITE.address.zip} ${SITE.address.city}-${SITE.address.district} (${SITE.locationNote})
+- Telefon: ${SITE.phone}
 - E-Mail: ${SITE.email}
 - Betreiber: ${SITE.operator.name}, ${SITE.operator.street}, ${SITE.operator.zip} ${SITE.operator.city}
 

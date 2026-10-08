@@ -10,6 +10,10 @@ export const SITE = {
   description:
     'KULT61 ist ein unabhängiger Kulturraum in Hanau-Großauheim: Konzerte, Partys & DJ-Sets, Kunst, Workshops und Raum für Kollektive – in einer ehemaligen KFZ-Halle. Aktuelle Events, Tickets und Räume mieten.',
   email: 'info@kult61.de',
+  // Telefon (Angabe von Arif, 08.10.2026): Anzeige, Link und Schema.org-Format
+  phone: '0176 64601977',
+  phoneIntl: '+49 176 64601977',
+  phoneHref: 'tel:+4917664601977',
   // Sammelseite aller Vorverkaufstickets (Eventbrite)
   ticketsUrl: 'https://www.eventbrite.de/o/121269897363',
   address: {
